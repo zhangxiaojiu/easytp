@@ -1,0 +1,1 @@
+<?php	return array ( 'webname' => '四川科美诺-拉卡拉西南运营中心', 'weburl' => 'http://127.0.0.1', 'keyword' => '四川科美诺,科美诺,四川科美诺信息技术有限公司,第三方支付,网站建设', 'description' => '四川科美诺信息技术有限公司是一家专注于第三方支付行业的网络公司！', 'telnum' => '18080906268', 'access' => '成都市金牛区环球广场2312', 'icpnum' => 'Copyright © 2015-2017  四川科美诺提供技术支持', 'tongji' => '', 'logo' => '/Public/images/logo.png', );?>

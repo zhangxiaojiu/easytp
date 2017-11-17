@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="{$web.keyword}" />
+<meta name="description" content="{$web.description}"	 />
+
+<title>{$web.webname}</title>
+<link href="__PUBLIC__/images/favicon.ico" rel="icon" type="image/x-icon" />
+	
+<link href="__PUBLIC__/css/main.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/base.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/css/layout.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/js/Banner.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/js/Slide.js"></script>
+
+
+</head>
+
+<body>
+
+
+<div class="public_head">
+
+	<div class="logo"><a href="/"><img style="height:60px" src="{$web.logo}" /></a></div>
+
+	<div class="menu">
+
+		<ul id="nav" class="public_nav clearfix">
+
+        <li class="nLi">
+
+          <h3><a href="/">首页</a></h3>
+
+        </li>
+        <li class="nLi">
+
+          <h3><a href="/index.php/index/about">关于我们</a></h3>
+
+        </li>
+
+        <li class="nLi">
+
+          <h3><a href="/index.php/index/lianxi">联系我们</a></h3>
+
+        </li>
+        <li class="nLi">
+
+          <h3><a href="/index.php/index/jiaru">加入我们</a></h3>
+
+        </li>
+
+
+
+
+<!--         <li class="nLi">
+
+          <h3><a href="/index.php/index/about">关于我们</a></h3>
+          <ul class="sub">
+            <li><a href="/index.php/index/about">公司简介</a></li>
+            
+            <li><a href="/index.php/index/lianxi">联系方式</a></li>
+            <li><a href="/index.php/index/jiaru">加入我们</a></li>
+           
+          </ul>
+        </li> -->
+
+      </ul>
+			<script type="text/javascript">
+
+				jQuery("#nav").slide({ 
+
+					type:"menu",// 效果类型，针对菜单/导航而引入的参数（默认slide）
+
+					titCell:".nLi", //鼠标触发对象
+
+					targetCell:".sub", //titCell里面包含的要显示/消失的对象
+
+					effect:"slideDown", //targetCell下拉效果
+
+					delayTime:300 , //效果时间
+
+					triggerTime:0, //鼠标延迟触发时间（默认150）
+
+				});
+
+			</script>
+
+	</div>
+
+	<div class="bk3"></div>
+
+</div>

@@ -1,0 +1,61 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>添加栏目</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/public.css" />
+</head>
+<body>
+	<form action="<?php echo U(GROUP_NAME . '/Cate/RuneditCate');?>" method="post">
+	<input type="hidden" name="id" value="<?php echo ($editcate["id"]); ?>" />
+		<table class="table">
+			<tr>
+				<td colspan="2">修改栏目</td>
+			</tr>
+			<tr>
+				<th>栏目名称：</th>
+				<td><input type="text" name="catename" value="<?php echo ($editcate["catename"]); ?>" /></td>
+			</tr>
+			<tr>
+				<th>上级栏目：</th>
+				<td>
+					<input type="text" name="pid" value="<?php echo ($editcate["pcate"]); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th>模板类型：</th>
+				<td>
+					<select name="lid" id="lid" onChange="cid('parent',this,0)">
+						<option value="0" id="0">文章类目</option>
+						<option value="1" id="1">单网页</option>
+						<option value="2" id="2">图片类型</option>
+					</select>
+				</td>
+				<script type="text/javascript">
+					function display(optionID){
+					var all_options = document.getElementById("lid").options;
+					for (i=0; i<all_options.length; i++){
+					if (all_options[i].id == optionID)
+						{
+						all_options[i].selected = true;
+						}
+						}
+						};
+					display("<?php echo ($editcate["lid"]); ?>");
+				</script>
+			</tr>
+			<tr>
+				<th>排序：</th>
+				<td>
+					<input type="text" name="sort" value="<?php echo ($editcate["sort"]); ?>"  />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="保存" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
