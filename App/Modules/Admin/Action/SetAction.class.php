@@ -11,18 +11,14 @@ Class SetAction extends CommonAction{
 		if (!I('weburl')) {
 			$this->error('网站域名不能为空！');
 		}
-		if (!I('telnum')) {
-			$this->error('联系电话不能为空！');
-		}
+
 		$data = array(
 			'webname' => $_POST['webname'], 
 			'weburl' => $_POST['weburl'], 
 			'keyword' => $_POST['keyword'],
 			'description' => $_POST['description'], 
-			'telnum' => $_POST['telnum'],
-			'access' => $_POST['access'], 
-			'icpnum' => $_POST['icpnum'], 
-			'tongji' => $_POST['tongji'],
+			'qqtalk' => $_POST['qqtalk'],
+			'qqqun' => $_POST['qqqun'],
 			);
 		if ($_FILES['logo']['size'] !== 0 && $_FILES) {
 			$info = $this->UpImg();
