@@ -26,11 +26,9 @@ Class SetAction extends CommonAction{
 		}else{
 			$data['logo']= $_POST['blogo'];
 		}
-		if(F('system',$data,CONF_PATH)){
-			$this->success('修改成功！');
-		}else{
-			$this->error('修改失败！');
-		}
+		F('system',$data,CONF_PATH);
+        $this->success('修改成功！');
+
 	}
 	//上传LOGO
 	Public function UpImg(){

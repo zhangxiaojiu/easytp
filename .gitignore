@@ -4,4 +4,4 @@
 /public/upload
 /sftp-config.json
 /App/Runtime
-/App/Conf/*
+/App/Conf/mysqldb.php
