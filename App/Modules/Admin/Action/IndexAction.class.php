@@ -1,7 +1,7 @@
 <?php
 Class IndexAction extends CommonAction{
 
-	Public function index(){
+	Public function Index(){
 		$this->display();
 	}
 	Public function LoginOut(){
