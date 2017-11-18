@@ -3,7 +3,5 @@ return array(
 	'TMPL_PARSE_STRING' => array(
 			'__PUBLIC__' => __ROOT__.'/'.APP_NAME.'/Modules/'.GROUP_NAME.'/Tpl/Public',
 		),
-	'TMPL_FILE_DEPR'=>'_',
-
-	'URL_HTML_SUFFIX' => '',
+    'URL_CASE_INSENSITIVE' =>true,
 	);

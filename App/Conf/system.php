@@ -1,1 +1,1 @@
-<?php	return array ( 'webname' => '时时彩娱乐-重庆时时彩信誉平台·钱多呀', 'weburl' => 'http://127.0.0.1', 'keyword' => '时时彩娱乐,侏罗纪娱乐,北京赛车PK拾,娱乐平台,时时彩代理,重庆时时彩平台', 'description' => '时时彩娱乐,侏罗纪娱乐,北京赛车PK拾,娱乐平台,时时彩代理,重庆时时彩平台', 'qqtalk' => '274276153', 'qqqun' => '', 'logo' => NULL, );?>
+<?php	return array ( 'webname' => '时时彩娱乐-重庆时时彩信誉平台·钱多呀平台', 'weburl' => 'http://ssc188888888.com/', 'keyword' => '时时彩娱乐侏罗纪娱乐,北京赛车PK拾,娱乐平台,时时彩代理,重庆时时彩平台', 'description' => '时时彩娱乐,罗纪娱乐,北京赛车PK拾,娱乐平台,时时彩代理,重庆时时彩平台', 'qqtalk' => '274276153', 'qqqun' => '', 'logo' => NULL, );?>
