@@ -3,3 +3,4 @@
 *.DS_Store
 /public/upload
 /sftp-config.json
+/App/Runtime
