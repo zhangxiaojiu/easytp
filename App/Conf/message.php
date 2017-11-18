@@ -1,1 +1,0 @@
-<?php	return array ( 'mess' => '1', 'email' => '1', 'Mess_user' => 'juliantianxia', 'Mess_pwd' => '7878A91B45378633431EA8C373C2', 'ctelnum' => '15315349234', 'SMTP_HOST' => 'smtp.qq.com', 'SMTP_PORT' => '465', 'FROM_EMAIL' => 'hlhr@qq.com', 'SMTP_USER' => 'hlhr@qq.com', 'SMTP_PASS' => 'dzhr_182630', 'TO_EMAIL' => 'hlhr@qq.com', 'smtpkey' => 25, );?>
