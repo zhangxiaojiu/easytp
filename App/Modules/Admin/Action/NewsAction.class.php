@@ -126,7 +126,7 @@ Class NewsAction extends CommonAction{
 	}
 
 	//回收站
-	Public function BackNews(){
+	Public function backNews(){
 		import('Class.Catelevel',APP_PATH);
 		$cate = M('cate')->where(array('lid'=>0))->select();
 		$this-> cate = Catelevel::unlimitedForLevel($cate);
