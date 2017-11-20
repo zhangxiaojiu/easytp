@@ -3,10 +3,8 @@
 Class IndexAction extends SystemAction{
 
 	Public function index(){
-		
-		$this-> slider = M('adv')->where(array('del'=>0))->select();
-		$this-> connect = M('news')->where(array('cid'=>3))->find();
-		
+		$this-> lists = M('news')->where(array('cid'=>1))->select();
+
 		$this->display();
 	}
 	Public function about(){
