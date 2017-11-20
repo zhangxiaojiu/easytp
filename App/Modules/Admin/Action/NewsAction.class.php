@@ -19,7 +19,7 @@ Class NewsAction extends CommonAction{
 		$this->display();
 	}
 
-	Public function AddNews(){
+	Public function addNews(){
 		import('Class.Catelevel',APP_PATH);
 		$cate =M('cate')->Where('lid != 1')->select();
 		$this-> cate =Catelevel::unlimitedForLevel($cate);
@@ -80,7 +80,7 @@ Class NewsAction extends CommonAction{
 			$this-> cate =Catelevel::unlimitedForLevel($cate);
 			$id = (int)$_GET['id'];
 			$this-> news = M('news')->find($id);
-			$this->display('EditNews');
+			$this->display('editNews');
 		}elseif(I('op') == 'reduction'){
 			$data = array(
 				'id' => (int) $_GET['id'],
@@ -155,11 +155,11 @@ Class NewsAction extends CommonAction{
 		$news['cid'] = $id;
 		if (!$new) {
 			$this-> news = $news;
-			$this->display('AddNews');
+			$this->display('addNews');
 		}else{
 			$news += $new;
 			$this-> news = $news;
-			$this->display('EditNews');
+			$this->display('editNews');
 		}
 	}
 

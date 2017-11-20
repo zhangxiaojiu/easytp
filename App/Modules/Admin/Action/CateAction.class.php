@@ -7,7 +7,7 @@ Class CateAction extends CommonAction{
 		$this->display();
 	}
 
-	Public function AddCate(){
+	Public function addCate(){
 		$this -> pid = I('pid',0,'intval');
 		$this->display();
 	}
