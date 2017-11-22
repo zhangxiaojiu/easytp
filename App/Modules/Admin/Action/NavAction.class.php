@@ -40,7 +40,7 @@ Class NavAction extends CommonAction{
         if(empty($id)){
             //添加
             if(M('nav')->add($data)){
-                $this->success('添加成功','Index');
+                $this->success('添加成功','index');
             }else{
                 $this->error('添加失败');
             }
@@ -48,7 +48,7 @@ Class NavAction extends CommonAction{
             //更新
             $data['id'] = $id;
             if(M('nav')->save($data)){
-                $this->success('保存成功','Index');
+                $this->success('保存成功','index');
             }else{
                 $this->error('保存失败');
             }
@@ -62,7 +62,7 @@ Class NavAction extends CommonAction{
             $this->error('参数错误');
         }
         M('navList')->delete($id);
-        $this->redirect('Index');
+        $this->redirect('index');
     }
     //设为首页导航
     Public function indexNav()
@@ -76,7 +76,7 @@ Class NavAction extends CommonAction{
         M('nav')->where(['uid'=>$uid])->save($data);
         $data['state'] = 1;
         M('nav')->where(['id'=>$id])->save($data);
-        $this->redirect('Index');
+        $this->redirect('index');
     }
 
     //导航列表详情页
