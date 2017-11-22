@@ -17,14 +17,17 @@
 	<div class="nav">
 		<div class="container">
 			<p class="nav_p">
-			<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes" class="no">网站首页</a>
-			<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">领取计划</a>
-			<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">计划软件</a>
-			<a target="_blank" href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">开奖查询1</a>
-			<a target="_blank" href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">开奖查询2</a>
-			<a target="_blank" href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">在线过滤</a>
-			<a target="_blank" href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">倍投计算</a>
-			<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes" class="nom">加总代QQ</a>
+				<foreach name="nav" item="vn">
+					<a target="_blank" href="{$vn.value}">{$vn.name}</a>
+				</foreach>
+			<!--<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes" class="no">网站首页</a>-->
+			<!--<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">领取计划</a>-->
+			<!--<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">计划软件</a>-->
+			<!--<a target="_blank" href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">开奖查询1</a>-->
+			<!--<a target="_blank" href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">开奖查询2</a>-->
+			<!--<a target="_blank" href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">在线过滤</a>-->
+			<!--<a target="_blank" href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes">倍投计算</a>-->
+			<!--<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes" class="nom">加总代QQ</a>-->
 			</p>
 		</div>
 	</div>

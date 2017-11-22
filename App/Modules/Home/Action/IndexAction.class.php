@@ -4,7 +4,9 @@ Class IndexAction extends SystemAction{
 
 	Public function index(){
 		$this-> lists = M('news')->where(array('cid'=>1))->select();
-
+        $nid = M('nav')->where(['uid'=>1,'state'=>1])->find();
+        $nav = M('navList')->where(['nid'=>$nid['id']])->order('sort')->select();
+        $this->assign('nav',$nav);
 		$this->display();
 	}
 	Public function about(){

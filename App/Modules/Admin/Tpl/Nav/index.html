@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>导航列表</title>
+	<css file='__PUBLIC__/Css/public.css'/>
+</head>
+<body>
+	<div style="padding: 10px;">
+		<a href="{:U(GROUP_NAME . '/Nav/navInfo')}"><button>添加导航列表</button></a>
+	</div>
+	<table class="table">
+		<tr>
+			<td align="center">名称</td>
+			<td align="center">内容</td>
+			<td align="center">创建时间</td>
+			<td align="center">状态</td>
+		</tr>
+		<foreach name="list" item="v">
+			<tr>
+				<td>{$v.name}</td>
+				<td>
+					<foreach name="v.nav_list" item="vo">
+						[<a href="{:U(GROUP_NAME . '/Nav/navListInfo',array('id' => $vo['id']))}">{$vo.name}</a>]　
+					</foreach>
+				</td>
+				<td>{$v.create_time}</td>
+				<td>
+					【<a href="{:U(GROUP_NAME .'/Nav/navListInfo')}">添加</a>】
+					【<a href="{:U(GROUP_NAME . '/Nav/navInfo',array('id' => $v['id']))}">修改</a>】
+					<eq name="v.state" value="0">
+					【<a href="{:U(GROUP_NAME . '/Nav/indexNav',array('id' => $v['id']))}" onclick="if(confirm('将被设为首页导航')==false)return false;">启用</a>】
+					<else/>
+						【首页】
+					</eq>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+</body>
+</html>
