@@ -55,6 +55,16 @@ Class NavAction extends CommonAction{
         }
     }
     //删除导航
+    Public function delNav()
+    {
+        $id = I('request.id','');
+        if(empty($id)){
+            $this->error('参数错误');
+        }
+        M('nav')->delete($id);
+        $this->redirect('index');
+    }
+    //删除导航列表
     Public function delNavList()
     {
         $id = I('request.id','');
@@ -86,6 +96,8 @@ Class NavAction extends CommonAction{
         if(!empty($id)){
             $info = M('navList')->where(['id'=>$id])->find();
             $this->assign('info',$info);
+        }else{
+            $this->assign('nid',I('request.nid',0));
         }
         $navList = M('nav')->where(['uid'=>$uid])->select();
         $this->assign("navList",$navList);

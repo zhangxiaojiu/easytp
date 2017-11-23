@@ -47,13 +47,55 @@
 	<div class="article">
 		<div class="container">
 			<foreach name="lists" item="v">
-				{$v.content}
+				<section class="cle_dt">
+					<section class="cle_dt1">
+						<img src="{$v.simage}"/><br/><br/>
+						<section class="cle_dt1d">
+							<a href="tencent://message/?uin={$web.qqtalk}&Site=&Menu=yes">领取计划软件，找客服</a>
+						</section>
+					</section>
+					{$v.content}
+					<section class="cle_dt2_3d">
+						<ul class="cle_dt23ul list-paddingleft-2">
+							<li>
+								<p>
+									平台信誉<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									线路稳定<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									提款速度<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									玩家体验<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									客服服务<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									综合评定：<img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/>
+								</p>
+							</li>
+						</ul>
+					</section>
+				</section>
 			</foreach>
-	</div>
+		</div>
 	<div class="footer">
 		<div class="footer_sm">
 			<div class="container">
-				<p class="footep_ss"><span class="focolor">平台信誉评级网说明：</span>平台信誉评级网是专业时时彩团队，致力于为您提供长期稳定信誉的时时彩平台，团队目前代理四季彩,合一亚洲,新生彩票,361彩票等多个信誉购彩平台彩种涵盖重庆时时彩、十一选五、快三、北京pk10、北京快乐8、六合彩、分分彩、秒秒彩等多个彩种，以及电子游戏、体育投注、真人游戏等如今彩界平台鱼龙混杂，选择一个好的代理和好的平台，就是选择资金保障没有永久的台子，但有我们十年如一日的团队，团队下代理和玩家全额资金理赔，免费提供各种计划端账号，欢迎广大玩家注册和代理加入！</p>
+				{$footContent}
 			</div>
 		</div>
 		<div class="footer_xl">

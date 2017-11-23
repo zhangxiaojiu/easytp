@@ -44,7 +44,7 @@ Class NewsAction extends CommonAction{
  			);
 		if ($_FILES['simage']['size'] !== 0 && $_FILES) {
 			$info = $this->UpImg();
-			$data['simage']= '/Upload/images/'.date('Ym', time()).'/thumb_'.$info[0]['savename'];
+			$data['simage']= '/Public/images/'.date('Ym', time()).'/thumb_'.$info[0]['savename'];
 		}
  		if (M('news')->add($data)) {
  			$this->success('添加成功!',U(GROUP_NAME.'/News/index'));
@@ -116,10 +116,10 @@ Class NewsAction extends CommonAction{
  			);
 		if ($_FILES['simage']['size'] !== 0 && $_FILES ) {
 			$info = $this->UpImg();
-			$data['simage']='/Upload/images/'.date('Ym', time()).'/thumb_'.$info[0]['savename'];
+			$data['simage']='/Public/images/'.date('Ym', time()).'/thumb_'.$info[0]['savename'];
 		}
  		if (M('news')->save($data)) {
- 			$this->success('修改成功!',U(GROUP_NAME.'/News/index'));
+ 			$this->success('修改成功!');
  		}else{
  			$this->error('修改失败！');
  		}
@@ -187,7 +187,7 @@ Class NewsAction extends CommonAction{
 			$upload = new UploadFile();// 实例化上传类
 			$upload->maxSize  = 2000000;// 设置附件上传大小
 			$upload->allowExts  = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-			$upload->savePath =  './Upload/images/'.date('Ym', time()).'/';// 设置附件上传目录
+			$upload->savePath =  './Public/images/'.date('Ym', time()).'/';// 设置附件上传目录
 			$upload->thumb = true;
 			$upload->thumbMaxWidth = 500;
 			$upload->thumbMaxHeight = 500;

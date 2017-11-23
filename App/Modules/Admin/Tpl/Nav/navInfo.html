@@ -19,6 +19,7 @@
 				<td colspan="2">
 					<input type="hidden" name="id" value="{$info.id}" />
 					<input type="submit" value="保存" />
+					<notempty name="info.id">　　<a href="{:U(GROUP_NAME . '/Nav/delNav',array('id'=>$info['id']))}" onclick="if(confirm('确定删除么？')==false)return false;">删除</a></notempty>
 				</td>
 			</tr>
 		</table>

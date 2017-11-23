@@ -17,7 +17,7 @@
 					<select name="nid">
 						<option value="0">===请选择列表===</option>
 						<foreach name="navList" item="v">
-							<option value="{$v.id}"  <eq name="info.nid" value="$v.id"> selected </eq>>{$v.name}</option>
+							<option value="{$v.id}"  <eq name="info.nid" value="$v.id"> selected </eq> <eq name="nid" value="$v.id"> selected </eq>>{$v.name}</option>
 						</foreach>
 					</select>
 				</td>
