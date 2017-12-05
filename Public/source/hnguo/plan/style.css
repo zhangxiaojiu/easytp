@@ -1,0 +1,142 @@
+﻿@charset "utf-8";
+/*all*/
+* {margin:0; padding:0; font-family:"微软雅黑"; font-size:12px;
+}
+body{background:#fff; min-width:1000px;}
+ul{list-style:none;}
+img{border:none;}
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+.clear{clear:both;}
+.width_1000{width:1000px; margin:0 auto;}
+table { border-collapse: collapse;}
+.fl{float:left;}
+.fr{float:right;}
+
+/*重庆时时彩数字背景*/
+.cqssc-nums {padding-left:90px;padding-top:18px}
+.cqssc-nums span {background: url(/Public/source/hnguo/plan/index-ico.png) -10px -414px no-repeat; width: 28px; height: 28px; float: left; margin-right: 6px; margin-left: 6px; font-family: Tahoma; line-height: 28px; text-align: center; font-size: 14px; font-weight: bold; color: #fff;}
+
+/*彩种开奖页面（北京赛车）*/
+.main .width_1000 .icon ul li{width:165px; height:126px; float:left; text-align:center;}
+.main .width_1000 .icon ul li h1 a{font-size:14px; color:#000;}
+.main .width_1000 .icon ul li h1 img{width:70px; height:70px; margin:20px 0 12px 0;}
+.main .width_1000 .count{width:1010px; height:172px; background:url(/Public/source/hnguo/plan/bgcount.png) no-repeat center center; margin:0px auto 0 auto;}
+.main .width_1000 .count2{ background:none}
+.main .width_1000 .count .firstcount{width:316px; height:117px; float:left; padding-top:20px;}
+.main .width_1000 .count .firstcount .pic{width:88px; float:left; margin:14px 0 0 22px;}
+.main .width_1000 .count .firstcount .pic img{width:88px; height:90px;}
+.main .width_1000 .count .firstcount .text{width:180px; float:left; text-align:center; margin-top:16px;}
+.main .width_1000 .count .firstcount .text h2{font-family:"微软雅黑"; font-size:24px; color:#fff; font-weight:normal; height:36px; background:url(/Public/source/hnguo/plan/line2.png) no-repeat center bottom;}
+.main .width_1000 .count .firstcount .text p{font-size:14px; color:#fff; font-weight:bold; padding-top:16px;}
+.main .width_1000 .count .firstcount .text p span{font-size:12px; color:#fff;}
+.main .width_1000 .count .middlecount{width:380px; height:156px; float:left; text-align:center;}
+.main .width_1000 .count .middlecount h2{font-family:"微软雅黑"; font-size:24px; color:#fff; font-weight:normal; height:52px; line-height:52px; background:url(/Public/source/hnguo/plan/line1.png) no-repeat center bottom; padding-top:18px;}
+.main .width_1000 .count .middlecount .lottery{padding-left:52px; padding-top:14px;}
+.main .width_1000 .count .middlecount .lottery i{display:block; width:25px; height:25px; background:url(images/pk10-nums.gif) no-repeat; padding-right:5px; float:left;}
+.main .width_1000 .count .middlecount .lottery .lot-no1{background-position:0 0;}
+.main .width_1000 .count .middlecount .lottery .lot-no8{background-position:0 -189px;}
+.main .width_1000 .count .middlecount .lottery .lot-no2{background-position:0 -27px;}
+.main .width_1000 .count .middlecount .lottery .lot-no6{background-position:0 -135px;}
+.main .width_1000 .count .middlecount .lottery .lot-no7{background-position:0 -162px;}
+.main .width_1000 .count .middlecount .lottery .lot-no5{background-position:0 -108px;}
+.main .width_1000 .count .middlecount .lottery .lot-no9{background-position:0 -216px;}
+.main .width_1000 .count .middlecount .lottery .lot-no10{background-position:0 -243px;}
+.main .width_1000 .count .middlecount .lottery .lot-no3{background-position:0 -54px;}
+.main .width_1000 .count .middlecount .lottery .lot-no4{background-position:0 -81px;}
+.main .width_1000 .count .lastcount{width:309px; height:117px; float:left; padding-top:20px;}
+.main .width_1000 .count .lastcount h2{font-family:"微软雅黑"; font-size:24px; color:#fff; font-weight:normal; height:36px; background:url(/Public/source/hnguo/plan/line3.png) no-repeat center bottom; padding-top:16px; text-align:center;}
+.main .width_1000 .count .lastcount #bottom #countdown{width:190px; height:46px; line-height:20px; margin:0 auto; text-align:center; margin-top:5px;}
+.main .width_1000 .count .lastcount #bottom #countdown span{font-size:14px; color:#fff;}
+.main .width_1000 .count .lastcount #bottom #countdown a{font-size:14px; color:#fff;}
+.main .width_1000 .count .lastcount #bottom #countdown .timeBox{display:inline-block; width:80px; font-family:"微软雅黑"; font-size:18px; color:#fff;}
+.main .width_1000 .count .lastcount #bottom #countdown .timeBox .minutes{display:inline-block; width:46px; height:46px; background:url(/Public/source/hnguo/plan/square_03.png) no-repeat center center; font-family:"微软雅黑"; font-size:30px; color:#c12445; margin-right:3px;}
+.main .width_1000 .count .lastcount #bottom #countdown .timeBox .seconds{display:inline-block; width:46px; height:46px; background:url(/Public/source/hnguo/plan/square_03.png) no-repeat center center; font-family:"微软雅黑"; font-size:30px; color:#c12445; margin-right:3px;}
+
+.middlecount .lot-nums2 {
+    border:none;
+    background:none;
+    margin-left:74px;
+}
+
+.middlecount .lot-nums3 {
+  border: none;
+  background: none;
+  margin-left: 16px;
+}
+
+p.green {
+    color:green;
+}
+
+.middlecount .lot-nums4 {
+  border: none;
+  background: none;
+  margin-left: -16px;
+}
+
+.middlecount .lot-nums5 {
+  border: none;
+  background: none;
+  margin-left: 21px;
+}
+
+.middlecount .lot-nums6 {
+  border: none;
+  background: none;
+  margin-left:-8px;
+}
+
+/*喇叭图标（倒计时开奖）*/
+.logo1 {
+    background:url(/Public/source/hnguo/plan/sound.png) no-repeat;
+    width:30px;
+    height:26px;
+    cursor:pointer;
+    margin-top: 18px;
+    margin-left: 260px;
+}
+
+.logo2 {
+    background:url(/Public/source/hnguo/plan/sound-close.png) no-repeat;
+    width:30px;
+    height:26px;
+    cursor:pointer;
+    margin-top: 18px;
+    margin-left: 260px;
+}
+
+.back {
+    background:#f6f6f6;
+}
+.jq_con p{text-indent:2em;line-height:30px;}
+#cqsscdt{color:#FFFFFF}
+html{height:100%;}
+body{font-family:"΢���ź�";}
+body,dl,dd,h1,h2,h3,h4,h5,h6,p,form,ul,ol,blockquote{margin:0}
+img{border:0 none;vertical-align:middle}
+input,select,textarea{font-size:14px;color:#333}
+input{vertical-align:middle;padding:2px;margin:0}
+table{border-collapse:collapse;border-spacing:0}
+select,input,button{font:14px/20px Verdana,Simsun,Helvetica,Arial,sans-serif;}
+em,i,cite,blockquote{font-style:normal}
+ul,ol{list-style:none outside;padding:0}
+h1,h2,h3,h4,h5,h6{font-size:100%}
+textarea{overflow-y:auto;padding:3px}
+a{color:#428bca;text-decoration:none;outline:0}
+a:hover,a:active{color:#2a6496;text-decoration:none;}
+.header_top{height:30px;background:#f8f8f8;border-bottom:1px solid #eee;font-size:14px;font-family:"microsoft yahei";text-align:center;padding-top:8px;margin-bottom:5px;}
+/*bottom*/
+.s-bg-2a{font-family:微软雅黑;background-color:#2aa3ce;color:#fff;clear:both;}
+.g-b-banner{width:725px;height:94px;padding-left:255px;margin:0px auto;background:url(/Public/source/hnguo/plan/u5.png);text-align:left;}
+.g-b-banner ul li{float:left;font-size:20px;padding:28px  0  20px 0;width:135px;}
+.g-b-banner ul li span{font-size:16px;}.g-b-banner ul li .f-pa1{font-size:14px;line-height:25px;}
+.u_mr60{margin-right:60px;}.u_mr52{margin-right:52px;}.u_mr72{margin-right:72px;}
+.s-d1{color:#d1ecf1;}
+.changecolor0{color:red;}
+.changecolor1{color:blue;}
+.changecolor2{color:green;}
+.changecolor3{color:#FF0;}
+#ftcolor{color:red;}
+#plandt{text-align:center;}
+.newzq-click-here{position:absolute;margin:45px 0 0 370px;width:247px;height:113px;background:url(/Public/source/hnguo/plan/quan-tip.png) 0 0}

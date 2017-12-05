@@ -1,0 +1,38 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>{$web.webname}</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="{$web.keyword}">
+    <meta name="description" content="{$web.description}">
+    <link rel="stylesheet" type="text/css" href="./Public/source/hnguo/style.css">
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <img src="/Public/source/hnguo/her_top.png" class="header_l">
+        <img src="/Public/source/hnguo/td.png" class="header_r">
+    </div>
+</div>
+<div class="nav">
+    <div class="container">
+        <p class="nav_p">
+            <foreach name="nav" item="vn">
+                <a target="_blank" href="{$vn.value}">{$vn.name}</a>
+            </foreach>
+        </p>
+    </div>
+</div>
+<div class="l_mian">
+    <div class="container">
+        <ul class="l_mian_ul">
+            <li><img src="./Public/source/hnguo/x_tx3.png"></li>
+            <li class="l_mian_li">
+                <span class="lb_isx"><i class="icon icon_lb"></i> 本站公告</span>
+                <span class="direle">
+				<marquee class="direle" scrolldelay="3" direction="left"><span class="lb_isx2">欢迎来到平台信誉评级网，本团队致力于为各位玩家朋友提供安全长久的信誉平台，谢谢大家对平台的支持，凡团队下玩家和代理，保障资金安全，请记住我们官网地址（www.caibayl.com）</span></marquee>
+				</span>
+            </li>
+        </ul>
+    </div>
+</div>
