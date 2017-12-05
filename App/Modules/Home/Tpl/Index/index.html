@@ -1,54 +1,87 @@
-<include file="Public/hnguo_header"/>
-	<div class="article">
-		<div class="container">
-			<foreach name="lists" item="v">
-				<section class="cle_dt">
-					<section class="cle_dt1">
-						<img style="max-width:200px;max-height: 150px;" src="{$v.simage}"/><br/><br/>
-						<section class="cle_dt1d">
-							<a href="tencent://message/?uin={$web.qqtalk}&Site=&Menu=yes">领取计划软件，找客服</a>
-						</section>
-					</section>
-					{$v.content}
-					<section class="cle_dt2_3d">
-						<ul class="cle_dt23ul list-paddingleft-2">
-							<li>
-								<p>
-									平台信誉<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-								</p>
-							</li>
-							<li>
-								<p>
-									线路稳定<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-								</p>
-							</li>
-							<li>
-								<p>
-									提款速度<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-								</p>
-							</li>
-							<li>
-								<p>
-									玩家体验<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-								</p>
-							</li>
-							<li>
-								<p>
-									客服服务<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-								</p>
-							</li>
-							<li>
-								<p>
-									综合评定：<img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/>
-								</p>
-							</li>
-						</ul>
+<include file="Public/header"/>
+<include file="Public/index_nav"/>
+<div class="article">
+	<div class="container">
+		<foreach name="lists" item="v">
+			<section class="cle_dt">
+				<section class="cle_dt1">
+					<img style="max-width:200px;max-height: 150px;" src="{$v.simage}"/><br/><br/>
+					<section class="cle_dt1d">
+						<a href="tencent://message/?uin={$web.qqtalk}&Site=&Menu=yes">领取计划软件，找客服</a>
 					</section>
 				</section>
-			</foreach>
+				{$v.content}
+				<section class="cle_dt2_3d">
+					<ul class="cle_dt23ul list-paddingleft-2">
+						<li>
+							<p>
+								平台信誉<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+							</p>
+						</li>
+						<li>
+							<p>
+								线路稳定<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+							</p>
+						</li>
+						<li>
+							<p>
+								提款速度<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+							</p>
+						</li>
+						<li>
+							<p>
+								玩家体验<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+							</p>
+						</li>
+						<li>
+							<p>
+								客服服务<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+							</p>
+						</li>
+						<li>
+							<p>
+								综合评定：<img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/>
+							</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</foreach>
+	</div>
+</div>
+<div class="footer">
+	<div class="footer_sm">
+		<div class="container">
+			{$footContent}
 		</div>
 	</div>
-<include file="Public/hnguo_footer"/>
+	<div class="footer_xl">
+		<div class="container">
+			<p class="footer_xlp">未满十八岁，请勿注册玩彩有风险，需量力而行！ 别让其他平台毁了你的血汗钱</p>
+			<span class="footer_xls">Copyright © 2012 - 2017 平台信誉评级网 Corporation, All Rights Reserved</span>
+		</div>
+	</div>
+</div>
+
+<div class="xy_fixed">
+	<ul class="xy_ulu">
+		<li class="xy_uli">在线客服<img src="/Public/source/hnguo/icon_x.png" alt="" id="x_gb"></li>
+		<li class="xy_uli1">
+			<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes"><img border="0" src="/Public/source/hnguo/qq.png" alt="点击这里给我发送消息" title="点击这里给我发送消息">在线客服1号</a>
+		</li>
+		<li class="xy_uli1">
+			<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes"><img border="0" src="/Public/source/hnguo/qq.png" alt="点击这里给我发送消息" title="点击这里给我发送消息">在线客服2号</a>
+		</li>
+		<li class="xy_uli1">
+			<a href="tencent://message/?uin={$web.qqtalk}&amp;Site=&amp;Menu=yes"><img border="0" src="/Public/source/hnguo/qq.png" alt="点击这里给我发送消息" title="点击这里给我发送消息">在线客服3号</a>
+		</li>
+		<li class="xy_uli1">
+			{$web.qqqun}
+		</li>
+	</ul>
+</div>
+
+<include file="Public/footer"/>
 <script type="text/javascript">
 $(function(){
 	$(document).ready(function(){
