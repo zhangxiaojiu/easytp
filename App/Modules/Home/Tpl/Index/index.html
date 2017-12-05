@@ -1,53 +1,53 @@
 <include file="Public/hnguo_header"/>
-<div class="article">
-	<div class="container">
-		<foreach name="lists" item="v">
-			<section class="cle_dt">
-				<section class="cle_dt1">
-					<img src="{$v.simage}"/><br/><br/>
-					<section class="cle_dt1d">
-						<a href="tencent://message/?uin={$web.qqtalk}&Site=&Menu=yes">领取计划软件，找客服</a>
+	<div class="article">
+		<div class="container">
+			<foreach name="lists" item="v">
+				<section class="cle_dt">
+					<section class="cle_dt1">
+						<img style="max-width:200px;max-height: 150px;" src="{$v.simage}"/><br/><br/>
+						<section class="cle_dt1d">
+							<a href="tencent://message/?uin={$web.qqtalk}&Site=&Menu=yes">领取计划软件，找客服</a>
+						</section>
+					</section>
+					{$v.content}
+					<section class="cle_dt2_3d">
+						<ul class="cle_dt23ul list-paddingleft-2">
+							<li>
+								<p>
+									平台信誉<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									线路稳定<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									提款速度<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									玩家体验<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									客服服务<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
+								</p>
+							</li>
+							<li>
+								<p>
+									综合评定：<img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/>
+								</p>
+							</li>
+						</ul>
 					</section>
 				</section>
-				{$v.content}
-				<section class="cle_dt2_3d">
-					<ul class="cle_dt23ul list-paddingleft-2">
-						<li>
-							<p>
-								平台信誉<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-							</p>
-						</li>
-						<li>
-							<p>
-								线路稳定<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-							</p>
-						</li>
-						<li>
-							<p>
-								提款速度<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-							</p>
-						</li>
-						<li>
-							<p>
-								玩家体验<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-							</p>
-						</li>
-						<li>
-							<p>
-								客服服务<span class="i_xus"><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em><em class="icon icon_x"></em></span>
-							</p>
-						</li>
-						<li>
-							<p>
-								综合评定：<img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/><img src="./Public/source/hnguo/a.gif"/>
-							</p>
-						</li>
-					</ul>
-				</section>
-			</section>
-		</foreach>
+			</foreach>
+		</div>
 	</div>
-</div>
 <include file="Public/hnguo_footer"/>
 <script type="text/javascript">
 $(function(){
