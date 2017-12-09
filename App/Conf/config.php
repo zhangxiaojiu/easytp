@@ -11,11 +11,19 @@ return array(
 	'URL_ROUTE_RULES' =>array(
 		//'常量/：get变量' => '映射地址'，
 		'list/:id/:p' => 'Home/List/index',
-		'news/:id' => 'Home/News/index',
 		'page/:id' => 'Home/Page/index',
 		'message/:id' => 'Home/Message/index',
 		),
 	//'SHOW_PAGE_TRACE' => true,
+    //完整域名部署
+    'APP_SUB_DOMAIN_DEPLOY' => true,
+    'APP_SUB_DOMAIN_RULES'    =>    array(
+        'ssc288888888.com'  => array('Home/Plan'),
+        'www.ssc288888888.com'   => array('Home/Plan'),
+        'ssc188888888.com'  => array('Home/'),
+        'www.ssc188888888.com'   => array('Home/'),
+        'admin.ssc188888888.com'   => array('Admin/')
+    ),
 
 	'LOAD_EXT_CONFIG' => 'mysqldb',
 );

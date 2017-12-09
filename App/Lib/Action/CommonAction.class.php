@@ -4,5 +4,6 @@ Class CommonAction extends Action{
 		if (!isset($_SESSION['uid'])) {
 			$this->redirect(GROUP_NAME . '/Login/index');
 		}
+        $this-> web = F('system','',CONF_PATH);
 	}
 }
