@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>彩票信息</title>
+	<css file="__PUBLIC__/Css/public.css"/>
+</head>
+<body>
+	<form action="{:U(GROUP_NAME . '/Lottery/runLotteryInfo')}" method="post">
+		<table class="table">
+			<tr>
+				<td colspan="2">彩票信息</td>
+			</tr>
+			<tr>
+				<th>彩票名称：</th>
+				<td><input type="text" name="name" value="{$info.name}" /></td>
+			</tr>
+			<tr>
+				<th>接口链接：</th>
+				<td><input type="text" name="api" value="{$info.api}" /></td>
+			</tr>
+			<tr>
+				<th>预测号码：</th>
+				<td><input type="text" name="nums" value="{$info.nums}" /></td>
+			</tr>
+			<tr>
+				<th>自动开启：</th>
+				<td><input type="checkbox" name="is_auto" <eq name="info.is_auto" value="1">checked<else/> </eq> /></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="hidden" name="id" value="{$info.id}" />
+					<input type="submit" value="保存" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

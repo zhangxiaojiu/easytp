@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>彩票列表</title>
+	<css file='__PUBLIC__/Css/public.css'/>
+</head>
+<body>
+	<div style="padding: 10px;">
+		<a href="{:U(GROUP_NAME . '/Lottery/lotteryInfo')}"><button>添加彩票</button></a>
+	</div>
+	<table class="table">
+		<tr>
+			<td align="center">名称</td>
+			<td align="center">接口</td>
+			<td align="center">预测号码</td>
+			<td align="center">自动生成</td>
+			<td align="center">操作</td>
+		</tr>
+		<php>$states = [0=>'否',1=>'是'];</php>
+		<foreach name="list" item="v">
+			<tr>
+				<td>{$v.name}</td>
+				<td>{$v.api}</td>
+				<td>{$v.nums}</td>
+				<td><php>echo $states[$v['is_auto']]</php></td>
+				<td>
+					【<a href="{:U(GROUP_NAME . '/Lottery/lotteryInfo',array('id' => $v['id']))}">修改</a>】
+					<eq name="v.state" value="0">
+						【<a href="{:U(GROUP_NAME . '/Lottery/state',array('id' => $v['id']))}" onclick="if(confirm('是否删除')==false)return false;">启用</a>】
+					<else/>
+						【<a href="{:U(GROUP_NAME . '/Lottery/state',array('id' => $v['id']))}" onclick="if(confirm('是否删除')==false)return false;">禁用</a>】
+					</eq>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+</body>
+</html>

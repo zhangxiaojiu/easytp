@@ -45,7 +45,7 @@
 					<else/>
 						[<a href="{:U(GROUP_NAME . '/News/operNew',array('op'=>'edit','id'=>$v['id']))}">修改</a>]
 						[<a href="{:U(GROUP_NAME . '/News/operNew',array('op' => 'refresh','id' => $v['id']))}">刷新</a>]
-						[<a href="{:U(GROUP_NAME . '/News/operNew',array('op'=>'del','id'=>$v['id']))}">删除</a>]
+						[<a href="{:U(GROUP_NAME . '/News/operNew',array('op'=>'del','id'=>$v['id']))}" onclick="if(confirm('确定删除么？')==false)return false;">删除</a>]
 					</if>
 				</td>
 			</tr>
