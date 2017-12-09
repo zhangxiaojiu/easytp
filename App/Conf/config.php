@@ -16,7 +16,7 @@ return array(
 		),
 	//'SHOW_PAGE_TRACE' => true,
     //完整域名部署
-    'APP_SUB_DOMAIN_DEPLOY' => true,
+    'APP_SUB_DOMAIN_DEPLOY' => false,
     'APP_SUB_DOMAIN_RULES'    =>    array(
         'ssc288888888.com'  => array('Home/Plan'),
         'www.ssc288888888.com'   => array('Home/Plan'),
