@@ -14,23 +14,21 @@
 			<td align="center">名称</td>
 			<td align="center">接口</td>
 			<td align="center">预测号码</td>
-			<td align="center">自动生成</td>
 			<td align="center">操作</td>
 		</tr>
-		<php>$states = [0=>'否',1=>'是'];</php>
 		<foreach name="list" item="v">
 			<tr>
 				<td>{$v.name}</td>
 				<td>{$v.api}</td>
 				<td>{$v.nums}</td>
-				<td><php>echo $states[$v['is_auto']]</php></td>
 				<td>
 					【<a href="{:U(GROUP_NAME . '/Lottery/lotteryInfo',array('id' => $v['id']))}">修改</a>】
 					<eq name="v.state" value="0">
-						【<a href="{:U(GROUP_NAME . '/Lottery/state',array('id' => $v['id']))}" onclick="if(confirm('是否删除')==false)return false;">启用</a>】
+						【<a href="{:U(GROUP_NAME . '/Lottery/runState',array('id' => $v['id']))}" onclick="if(confirm('是否启用')==false)return false;">启用</a>】
 					<else/>
-						【<a href="{:U(GROUP_NAME . '/Lottery/state',array('id' => $v['id']))}" onclick="if(confirm('是否删除')==false)return false;">禁用</a>】
+						【<a href="{:U(GROUP_NAME . '/Lottery/runState',array('id' => $v['id']))}" onclick="if(confirm('是否禁用')==false)return false;">禁用</a>】
 					</eq>
+					【<a href="{:U(GROUP_NAME . '/Lottery/lotteryPlan',array('id' => $v['id']))}">查看计划</a>】
 				</td>
 			</tr>
 		</foreach>

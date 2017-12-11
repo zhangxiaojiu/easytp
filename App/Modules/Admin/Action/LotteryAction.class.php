@@ -56,93 +56,41 @@ Class LotteryAction extends CommonAction{
             }
         }
     }
-    //删除导航
-    Public function delNav()
-    {
+    /*
+     * 禁用、启用彩票
+     */
+    public function runState(){
         $id = I('request.id','');
         if(empty($id)){
             $this->error('参数错误');
         }
-        M('nav')->delete($id);
-        $this->redirect('index');
-    }
-    //删除导航列表
-    Public function delNavList()
-    {
-        $id = I('request.id','');
-        if(empty($id)){
-            $this->error('参数错误');
+        $info = M('lottery')->where(['id'=>$id])->find();
+        $data['id'] = $info['id'];
+        if($info['state'] == 0){
+            $data['state'] = 1;
+        }else{
+            $data['state'] = 0;
         }
-        M('navList')->delete($id);
-        $this->redirect('index');
-    }
-    //设为首页导航
-    Public function indexNav()
-    {
-        $id = I('request.id','');
-        $uid = session('uid');
-        if(empty($id)){
-            $this->error('参数错误');
-        }
-        $data['state'] = 0;
-        M('nav')->where(['uid'=>$uid])->save($data);
-        $data['state'] = 1;
-        M('nav')->where(['id'=>$id])->save($data);
+        M('lottery')->save($data);
         $this->redirect('index');
     }
 
-    //导航列表详情页
-    Public function navListInfo(){
+    /*
+     * 计划数据
+     */
+    public function lotteryPlan(){
         $id = I('request.id','');
-        $uid = session('uid');
-        if(!empty($id)){
-            $info = M('navList')->where(['id'=>$id])->find();
-            $this->assign('info',$info);
-        }else{
-            $this->assign('nid',I('request.nid',0));
+        if(empty($id)){
+            $this->error('参数错误');
         }
-        $navList = M('nav')->where(['uid'=>$uid])->select();
-        $this->assign("navList",$navList);
+        $info = M('lottery')->where(['id'=>$id,'state'=>1])->find();
+        if(!$info){
+            $this->error('当前计划不可用');
+        }
+        $url = $info['api'];
+        $ret = http($url);
+        $arr = json_decode($ret);
+        p($arr);
         $this->display();
     }
-    //运行添加导航列表详情
-	Public function runNavListInfo(){
-        $id = I('request.id','');
-        $nid = I('request.nid','');
-        $name = I('request.name','');
-        $type = I('request.type','');
-        $value = I('request.value','');
-        $sort = I('request.sort','');
-        if($nid == 0){
-            $this->error('请选择导航列表');
-        }
-        if(empty($name) || empty($type) || empty($value)){
-            $this->error('请完善信息');
-        }else{
-            $data = [
-                'nid' => $nid,
-                'name' => $name,
-                'type' => $type,
-                'value' => $value,
-                'sort' => $sort,
-                'create_time' => date('Y-m-d H:i:s'),
-            ];
-        }
-        if(empty($id)){
-            //添加
-            if(M('navList')->add($data)){
-                $this->success('添加成功','index');
-            }else{
-                $this->error('添加失败');
-            }
-        }else{
-            //更新
-            $data['id'] = $id;
-            if(M('navList')->save($data)){
-                $this->success('保存成功','index');
-            }else{
-                $this->error('保存失败');
-            }
-        }
-	}
 }
