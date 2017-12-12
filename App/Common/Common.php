@@ -101,11 +101,22 @@
 		/*
 		 * 打印
 		 */
-		function p($arr){
+		function p($arr,$e=true){
 		    echo "<pre>";
 		    print_r($arr);
 		    echo "</pre>";
-		    exit;
+		    if(!$e){
+		        exit;
+            }
+        }
+
+        /*
+         * 随机生成不重复数字
+         */
+        function NoRand($begin=0,$end=20,$limit=5){
+            $rand_array=range($begin,$end);
+            shuffle($rand_array);//调用现成的数组随机排列函数
+            return array_slice($rand_array,0,$limit);//截取前$limit个
         }
 
 ?>

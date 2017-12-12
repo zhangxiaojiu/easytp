@@ -1,0 +1,109 @@
+<include file="Public/header"/>
+<meta http-equiv="refresh" content="60;url=/">
+<link href="/Public/source/hnguo/plan/style.css" rel="stylesheet" type="text/css">
+<div class="main">
+    <div class="width_1000">
+        <div class="count">
+            <div class="firstcount">
+                <div class="pic">
+                    <img alt="img" src="/Public/source/hnguo/plan/sscb.png" width="90" height="91">
+                </div>
+                <div class="text">
+                    <h2>重庆彩</h2>
+                    <p>
+                        <span>10:00--22:00/十分钟开奖</span><br>
+                        <span>22:05--01:55/五分钟开奖</span>
+                    </p>
+                </div>
+            </div>
+            <php>
+                $opencode = explode(',',$new['opencode']);
+                $expect = substr($new['expect'],-3);
+            </php>
+            <div class="middlecount">
+                <div id="cqsscdt" style=""><h2>第{$expect}期开奖号码</h2>
+                    <div class="cqssc-nums">
+                        <foreach name="opencode" item="v">
+                            <span>{$v}</span>
+                        </foreach>
+                    </div>
+                </div>
+            </div>
+            <div class="lastcount">
+                <h2>高手计划群：{$web.qqqun}</h2>
+                <div id="bottom">
+                    <div id="countdown">
+                        <span>引领重庆彩计划树标杆！</span><br>
+                        <span>赚钱就在这里！</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table style="margin:0 auto;" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+            <td><a href="#"><img src="/Public/source/hnguo/plan/gwjh.png" width="140" height="64" alt="定位胆个位计划"></a></td>
+            <!--<td><a href=""><img src="/Public/source/hnguo/plan/h2zx.png" width="164" height="64" alt="后二直选"></a></td>-->
+            <!--<td><a href=""><img src="/Public/source/hnguo/plan/h3zx.png" width="167" height="64" alt="后三直选"></a></td>-->
+            <!--<td><a href=""><img src="/Public/source/hnguo/plan/h2z6.png" alt="后三组六" width="167" height="64" border="0"></a></td>-->
+            <td><a href=""><img src="/Public/source/hnguo/plan/pk10.png" alt="北京赛车pk10" width="150" height="64" border="0"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <style>
+        .plan-list{width: 100%;text-align: center; margin:20px auto;}
+        .plan-list tr{border-bottom:1px solid #991F5E; line-height: 30px;}
+        .plan-list tr th{font-size:20px; color:#0e90d2;}
+        .plan-list tr td{font-size:20px;}
+    </style>
+    <div class="width_1000" style="text-align: center;">
+        <b style="font-size:24px; color:blue;">领头羊团队分析师推荐<br><span style="color:red;font-size:24px;">{$expect+1}-{$expect+3}期 个位【{$info.nums}】{$expect+1}期 等开</span></b>
+        <br><br><span style="font-size: 16px;">我们3期一个计划，计划中奖则更新计划，3期不中也更新计划。</span>
+        <br><br><span style="font-size: 16px; color:blue;">网页自动刷新，请不要频繁刷新。网址：www.ssc288888888.com</span>
+    </div>
+    <div class="width_1000">
+        <table class="plan-list">
+            <tr>
+                <th>期数</th>
+                <th>预测号码</th>
+                <th>开奖号码</th>
+                <th>状态</th>
+                <th>开奖时间</th>
+            </tr>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo.expect}</td>
+                    <td>{$vo.code}</td>
+                    <td>{$vo.opencode}</td>
+                    <td><eq name="vo.state" value="1">中<else/>错</eq></td>
+                    <td>{$vo.opentime}</td>
+                </tr>
+            </foreach>
+        </table>
+    </div>
+</div>
+
+
+<div class="s-bg-2a" style="font-family:微软雅黑;">
+    <div class="g-b-banner">
+        <ul>
+            <li class="u_mr52">
+                <p>7X16 <span>小时</span></p>
+                <p class="f-pa1   s-d1">全年无休</p>
+            </li>
+            <li class="u_mr60">
+                <p>群体服务</p>
+                <p class="f-pa1   s-d1">管理员全程教学</p>
+            </li>
+            <li class="u_mr72">
+                <p>网赚领先者</p>
+                <p class="f-pa1   s-d1">行业排名TOP1</p>
+            </li>
+            <li>
+                <p>7年服务经验</p>
+                <p class="f-pa1   s-d1">服务超百万客户</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<include file="Public/footer"/>

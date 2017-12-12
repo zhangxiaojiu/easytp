@@ -18,8 +18,8 @@ return array(
     //完整域名部署
     'APP_SUB_DOMAIN_DEPLOY' => false,
     'APP_SUB_DOMAIN_RULES'    =>    array(
-        'ssc288888888.com'  => array('Home/Plan'),
-        'www.ssc288888888.com'   => array('Home/Plan'),
+        'ssc288888888.com'  => array('Home/Lottery'),
+        'www.ssc288888888.com'   => array('Home/Lottery'),
         'ssc188888888.com'  => array('Home/'),
         'www.ssc188888888.com'   => array('Home/'),
         'admin.ssc188888888.com'   => array('Admin/')

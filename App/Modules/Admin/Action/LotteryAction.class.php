@@ -24,6 +24,7 @@ Class LotteryAction extends CommonAction{
         $id = I('request.id','');
         $uid = session('uid');
         $name = I('request.name','');
+        $sign = I('request.sign','');
         $api = I('request.api','');
         $nums = I('request.nums','');
         $is_auto = I('request.is_auto')?1:0;
@@ -33,6 +34,7 @@ Class LotteryAction extends CommonAction{
             $data = [
                 'uid' => $uid,
                 'name' => $name,
+                'sign' => $sign,
                 'api' => $api,
                 'nums' => $nums,
                 'is_auto' => $is_auto,
