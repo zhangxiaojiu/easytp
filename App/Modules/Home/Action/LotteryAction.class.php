@@ -84,6 +84,15 @@ class LotteryAction extends SystemAction
             self::getData($v['id']);
         }
     }
+    /*
+     * 删除无用数据
+     */
+    public function delUnuseData(){
+        $where = [
+            'opentime' => array('lt',date('Y-m-d',time()-2*24*60*60).'%'),
+        ];
+        M('lotteryPlan')->where($where)->delete();
+    }
 
     //获取当前彩票信息
     public static function getInfo($id){
