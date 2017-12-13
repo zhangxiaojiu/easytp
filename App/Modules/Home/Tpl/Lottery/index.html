@@ -1,18 +1,17 @@
 <include file="Public/header"/>
-<meta http-equiv="refresh" content="60;url=/">
+<meta http-equiv="refresh" content="60;url=/index.php?id={$info.id}">
 <link href="/Public/source/hnguo/plan/style.css" rel="stylesheet" type="text/css">
 <div class="main">
     <div class="width_1000">
         <div class="count">
             <div class="firstcount">
                 <div class="pic">
-                    <img alt="img" src="/Public/source/hnguo/plan/sscb.png" width="90" height="91">
+                    <img alt="img" src="{$info.logo}" width="90" height="91">
                 </div>
                 <div class="text">
-                    <h2>重庆彩</h2>
+                    <h2>{$info.name}</h2>
                     <p>
-                        <span>10:00--22:00/十分钟开奖</span><br>
-                        <span>22:05--01:55/五分钟开奖</span>
+                        {$info.rule}
                     </p>
                 </div>
             </div>
@@ -42,11 +41,11 @@
     </div>
     <table style="margin:0 auto;" border="0" align="center" cellpadding="0" cellspacing="0">
         <tbody><tr>
-            <td><a href="#"><img src="/Public/source/hnguo/plan/gwjh.png" width="140" height="64" alt="定位胆个位计划"></a></td>
+            <td><a href="/index.php?id=1"><img src="/Public/source/hnguo/plan/gwjh.png" width="140" height="64" alt="定位胆个位计划"></a></td>
             <!--<td><a href=""><img src="/Public/source/hnguo/plan/h2zx.png" width="164" height="64" alt="后二直选"></a></td>-->
             <!--<td><a href=""><img src="/Public/source/hnguo/plan/h3zx.png" width="167" height="64" alt="后三直选"></a></td>-->
             <!--<td><a href=""><img src="/Public/source/hnguo/plan/h2z6.png" alt="后三组六" width="167" height="64" border="0"></a></td>-->
-            <td><a href=""><img src="/Public/source/hnguo/plan/pk10.png" alt="北京赛车pk10" width="150" height="64" border="0"></a></td>
+            <td><a href="/index.php?id=2"><img src="/Public/source/hnguo/plan/pk10.png" alt="北京赛车pk10" width="150" height="64" border="0"></a></td>
         </tr>
         </tbody>
     </table>
