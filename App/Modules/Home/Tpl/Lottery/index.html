@@ -21,7 +21,7 @@
             </php>
             <div class="middlecount">
                 <div id="cqsscdt" style=""><h2>第{$expect}期开奖号码</h2>
-                    <div class="cqssc-nums">
+                    <div class="cqssc-nums" <eq name="info.sign" value="cqssc">style="padding-left:90px;"</eq>>
                         <foreach name="opencode" item="v">
                             <span>{$v}</span>
                         </foreach>
