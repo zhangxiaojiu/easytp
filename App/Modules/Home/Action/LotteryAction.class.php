@@ -163,9 +163,9 @@ class LotteryAction extends SystemAction
         }
         if($beforeLog[0]['state'] == 1){
             $ret['times'] = 1;
-        }else if($beforeLog[0]['state'] == 0 && $beforeLog[0]['status'] == 0){
+        }else if($beforeLog[0]['state'] == 0 && $beforeLog[0]['status'] == 0 && !empty($beforeLog[0])){
             $ret['times'] = 2;
-            if($beforeLog[1]['state'] == 0 && $beforeLog[1]['status'] == 0){
+            if($beforeLog[1]['state'] == 0 && $beforeLog[1]['status'] == 0 && !empty($beforeLog[1])){
                 $ret['times'] = 3;
             }
         }else{
