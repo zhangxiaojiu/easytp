@@ -12,16 +12,18 @@ class LotteryAction extends SystemAction
         $id = I('request.id',1);
         $info = self::getInfo($id);
         if($info['state'] == 0){
-            $this->error('当前计划已被禁用','http://www.ssc188888888.com');
+            $this->error('当前计划已被禁用','http://www.csc5188.com');
         }
 
-        if(!self::getData($id)){
+        $ret = self::getData($id);
+        if($ret['code'] == 102){
             $this->error('访问过于频繁,等待3秒后点击确定自动刷新','/');
         }
 
         $where = [
             'opentime' => array('like',date('Y-m-d').'%'),
             'sign' => $info['sign'],
+            'status' => 1,
         ];
         $list = M('lotteryPlan')->where($where)->order('expect DESC')->select();
         $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
@@ -38,13 +40,16 @@ class LotteryAction extends SystemAction
     public static function getData($cid=0){
         $id = $cid != 0?$cid:I('request.id',1);
         $info = self::getInfo($id);
+        if($info['is_auto'] == 0 && $info['nums'] == ''){
+            return ['code'=>101,'msg'=>'不自动生成，没有预测'];
+        }
         $sign = $info['sign'];
         $url = $info['api'];
         $ret = http_curl($url);
         $res = json_decode($ret,true);
         $data = $res['data'];
         if(empty($data)){
-            return false;
+            return ['code'=>102,'msg'=>'刷新频率太快'];
         }
 
         $where = [
@@ -57,6 +62,9 @@ class LotteryAction extends SystemAction
             if($v['expect'] <= $expect && !empty($expect)){
                 break;
             }
+            if($info['nums'] == ''){
+                self::updatePlan($sign);
+            }
             $info = self::getInfo($id);
             $con = [
                 'sign' => $sign,
@@ -65,11 +73,23 @@ class LotteryAction extends SystemAction
                 'opencode' => $v['opencode'],
                 'opentime' => $v['opentime'],
                 'createtime' => date('Y-m-d H:i:s'),
-                'state' => self::isCode($sign,$info['nums'],$v['opencode'])
+                'status' => 1,
             ];
+            $isCode = self::isCode($sign,$info['nums'],$v['opencode']);
+            if($isCode['code'] == 102){
+                $con['state'] = 0;
+                $con['status'] = 0;
+            }else{
+                if($isCode['code'] == 100){
+                    $con['state'] = 1;
+                }
+                if($isCode['code'] == 101){
+                    $con['state'] = 0;
+                }
+            }
             M('lotteryPlan')->add($con);
         }
-        return true;
+        return ['code'=>100,'msg'=>'获取成功'];
     }
 
     /*
@@ -107,7 +127,7 @@ class LotteryAction extends SystemAction
             $a = explode(',',$code);
             if(in_array($i,$a)){
                 self::updatePlan($sign);
-                return 1;
+                return ['code'=>100,'msg'=>'right'];
             }else{
                 $where = [
                     'opentime' => array('like',date('Y-m-d').'%'),
@@ -116,8 +136,9 @@ class LotteryAction extends SystemAction
                 $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(2)->select();
                 if($beforeLog[0]['state'] == 0 && $beforeLog[1]['state'] == 0 && !empty($beforeLog[0]) && !empty($beforeLog[1])){
                     self::updatePlan($sign);
+                    return ['code'=>101,'msg'=>'wrong three times'];
                 }
-                return 0;
+                return ['code'=>102,'msg'=>'wrong'];
             }
         }
         //北京赛车PK10
@@ -126,7 +147,7 @@ class LotteryAction extends SystemAction
             $a = explode(',',$code);
             if(in_array($i,$a)){
                 self::updatePlan($sign);
-                return 1;
+                return ['code'=>100,'msg'=>'right'];
             }else{
                 $where = [
                     'opentime' => array('like',date('Y-m-d').'%'),
@@ -135,8 +156,9 @@ class LotteryAction extends SystemAction
                 $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(2)->select();
                 if($beforeLog[0]['state'] == 0 && $beforeLog[1]['state'] == 0 && !empty($beforeLog[0]) && !empty($beforeLog[1])){
                     self::updatePlan($sign);
+                    return ['code'=>101,'msg'=>'wrong three times'];
                 }
-                return 0;
+                return ['code'=>102,'msg'=>'wrong'];
             }
         }
     }
@@ -144,6 +166,7 @@ class LotteryAction extends SystemAction
     //更新计划
     public static function updatePlan($sign){
         //重庆时时彩
+        $info = M('lottery')->where(['sign'=>$sign])->find();
         if($sign == 'cqssc'){
             $num = NoRand(0,9,5);
             asort($num);
@@ -151,7 +174,6 @@ class LotteryAction extends SystemAction
             $data = [
                 'nums'=>$code
             ];
-            return M('lottery')->where(['sign'=>$sign])->save($data);
         }
         //北京赛车PK10
         if($sign == 'bjpk10'){
@@ -166,8 +188,12 @@ class LotteryAction extends SystemAction
             $data = [
                 'nums'=>$code
             ];
-            return M('lottery')->where(['sign'=>$sign])->save($data);
         }
+
+        if($info['is_auto'] == 0){
+            $data['nums'] = '';
+        }
+        return M('lottery')->where(['sign'=>$sign])->save($data);
     }
 
 }

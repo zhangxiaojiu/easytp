@@ -25,7 +25,11 @@
 			</tr>
 			<tr>
 				<th>预测号码：</th>
-				<td><input type="text" name="nums" value="{$info.nums}" /> 自动生成</td>
+				<td><input type="text" name="nums" value="{$info.nums}" /></td>
+			</tr>
+			<tr>
+				<th>自动生成：</th>
+				<td><input type="checkbox" name="is_auto" <eq name="info.is_auto" value="1">checked</eq>/></td>
 			</tr>
 			<tr>
 				<td colspan="2">

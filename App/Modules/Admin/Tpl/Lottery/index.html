@@ -15,14 +15,19 @@
 			<td align="center">标识</td>
 			<td align="center">接口</td>
 			<td align="center">预测号码</td>
+			<td align="center">自动生成</td>
 			<td align="center">操作</td>
 		</tr>
+		<php>
+			$autos = array('0'=>'否', '1'=>'是');
+		</php>
 		<foreach name="list" item="v">
 			<tr>
 				<td>{$v.name}</td>
 				<td>{$v.sign}</td>
 				<td>{$v.api}</td>
 				<td>{$v.nums}</td>
+				<td><php>echo $autos[$v['is_auto']]</php></td>
 				<td>
 					【<a href="{:U(GROUP_NAME . '/Lottery/lotteryInfo',array('id' => $v['id']))}">修改</a>】
 					<eq name="v.state" value="0">
