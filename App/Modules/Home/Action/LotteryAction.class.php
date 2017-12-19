@@ -24,7 +24,7 @@ class LotteryAction extends SystemAction
             'sign' => $info['sign'],
         ];
         $list = M('lotteryPlan')->where($where)->order('expect DESC')->select();
-        $newLog = M('lotteryPlan')->order('opentime DESC')->limit(1)->find();
+        $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
         $newinfo = self::getInfo($id);
         $this->assign('info',$newinfo);
         $this->assign('new',$newLog);
