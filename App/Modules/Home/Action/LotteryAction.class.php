@@ -26,6 +26,9 @@ class LotteryAction extends SystemAction
             'status' => 1,
         ];
         $list = M('lotteryPlan')->where($where)->order('expect DESC')->select();
+        $where = [
+            'sign' => $info['sign']
+        ];
         $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
         $newinfo = self::getInfo($id);
         $this->assign('info',$newinfo);
@@ -53,42 +56,41 @@ class LotteryAction extends SystemAction
         }
 
         $where = [
-            'opentime' => array('like',date('Y-m-d').'%'),
             'sign' => $sign,
         ];
         $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
         $expect = $beforeLog['expect'];
-        foreach ($data as $k=>$v){
-            if($v['expect'] <= $expect && !empty($expect)){
-                break;
-            }
-            if($info['nums'] == ''){
-                self::updatePlan($sign);
-            }
-            $info = self::getInfo($id);
-            $con = [
-                'sign' => $sign,
-                'expect' => $v['expect'],
-                'code' => $info['nums'],
-                'opencode' => $v['opencode'],
-                'opentime' => $v['opentime'],
-                'createtime' => date('Y-m-d H:i:s'),
-                'status' => 1,
-            ];
-            $isCode = self::isCode($sign,$info['nums'],$v['opencode']);
-            if($isCode['code'] == 102){
-                $con['state'] = 0;
-                $con['status'] = 0;
-            }else{
-                if($isCode['code'] == 100){
-                    $con['state'] = 1;
-                }
-                if($isCode['code'] == 101){
-                    $con['state'] = 0;
-                }
-            }
-            M('lotteryPlan')->add($con);
+
+        if($data[0]['expect'] <= $expect && !empty($expect)){
+            return ['code'=>103,'msg'=>'没有最新一期'];
         }
+        if($info['nums'] == ''){
+            self::updatePlan($sign);
+            $info = self::getInfo($id);
+        }
+        $con = [
+            'sign' => $sign,
+            'expect' => $data[0]['expect'],
+            'code' => $info['nums'],
+            'opencode' => $data[0]['opencode'],
+            'opentime' => $data[0]['opentime'],
+            'createtime' => date('Y-m-d H:i:s'),
+            'status' => 1,
+        ];
+        $isCode = self::isCode($sign,$info['nums'],$data[0]['opencode']);
+        if($isCode['code'] == 102){
+            $con['state'] = 0;
+            $con['status'] = 0;
+        }else{
+            if($isCode['code'] == 100){
+                $con['state'] = 1;
+            }
+            if($isCode['code'] == 101){
+                $con['state'] = 0;
+            }
+        }
+        $con['state_time'] = $isCode['times'];
+        M('lotteryPlan')->add($con);
         return ['code'=>100,'msg'=>'获取成功'];
     }
 
@@ -121,46 +123,55 @@ class LotteryAction extends SystemAction
 
     //判断是否预测中
     public static function isCode($sign,$code,$opencode){
+        //查询前两次记录做判断
+        $where = [
+            'opentime' => array('like',date('Y-m-d').'%'),
+            'sign' => $sign,
+        ];
+        $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(2)->select();
         //重庆时时彩
         if($sign == 'cqssc'){
             $i = explode(',',$opencode)[4];
             $a = explode(',',$code);
             if(in_array($i,$a)){
                 self::updatePlan($sign);
-                return ['code'=>100,'msg'=>'right'];
+                $ret = ['code'=>100,'msg'=>'right'];
             }else{
-                $where = [
-                    'opentime' => array('like',date('Y-m-d').'%'),
-                    'sign' => $sign,
-                ];
-                $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(2)->select();
-                if($beforeLog[0]['state'] == 0 && $beforeLog[1]['state'] == 0 && !empty($beforeLog[0]) && !empty($beforeLog[1])){
+                if($beforeLog[0]['state'] == 0 && $beforeLog[0]['status'] != 1 && $beforeLog[1]['state'] == 0 && $beforeLog[1]['status'] != 1 && !empty($beforeLog[0]) && !empty($beforeLog[1])){
                     self::updatePlan($sign);
-                    return ['code'=>101,'msg'=>'wrong three times'];
+                    $ret = ['code'=>101,'msg'=>'wrong three times'];
+                }else {
+                    $ret = ['code' => 102, 'msg' => 'wrong'];
                 }
-                return ['code'=>102,'msg'=>'wrong'];
             }
         }
         //北京赛车PK10
         if($sign =='bjpk10'){
-            $i = explode(',',$opencode)[9];
+            $i = explode(',',$opencode)[0];
             $a = explode(',',$code);
             if(in_array($i,$a)){
                 self::updatePlan($sign);
-                return ['code'=>100,'msg'=>'right'];
+                $ret = ['code'=>100,'msg'=>'right'];
             }else{
-                $where = [
-                    'opentime' => array('like',date('Y-m-d').'%'),
-                    'sign' => $sign,
-                ];
-                $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(2)->select();
-                if($beforeLog[0]['state'] == 0 && $beforeLog[1]['state'] == 0 && !empty($beforeLog[0]) && !empty($beforeLog[1])){
+                if($beforeLog[0]['state'] == 0 && $beforeLog[0]['status'] != 1 && $beforeLog[1]['state'] == 0 && $beforeLog[1]['status'] != 1 && !empty($beforeLog[0]) && !empty($beforeLog[1])){
                     self::updatePlan($sign);
-                    return ['code'=>101,'msg'=>'wrong three times'];
+                    $ret = ['code'=>101,'msg'=>'wrong three times'];
+                }else {
+                    $ret = ['code' => 102, 'msg' => 'wrong'];
                 }
-                return ['code'=>102,'msg'=>'wrong'];
             }
         }
+        if($beforeLog[0]['state'] == 1){
+            $ret['times'] = 1;
+        }else if($beforeLog[0]['state'] == 0 && $beforeLog[0]['status'] == 0){
+            $ret['times'] = 2;
+            if($beforeLog[1]['state'] == 0 && $beforeLog[1]['status'] == 0){
+                $ret['times'] = 3;
+            }
+        }else{
+            $ret['times'] = 1;
+        }
+        return $ret;
     }
 
     //更新计划
