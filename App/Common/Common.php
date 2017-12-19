@@ -65,7 +65,7 @@
 		 * @param  string $method 请求方法GET/POST
 		 * @return array  $data   响应数据
 		 */
-		function http($url, $params, $method = 'GET', $header = array(), $multi = false){
+		function http_curl($url, $params, $method = 'GET', $header = array(), $multi = false){
 		    $opts = array(
 		            CURLOPT_TIMEOUT        => 30,
 		            CURLOPT_RETURNTRANSFER => 1,

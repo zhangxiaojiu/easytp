@@ -40,7 +40,7 @@ class LotteryAction extends SystemAction
         $info = self::getInfo($id);
         $sign = $info['sign'];
         $url = $info['api'];
-        $ret = http($url);
+        $ret = http_curl($url);
         $res = json_decode($ret,true);
         $data = $res['data'];
         if(empty($data)){
