@@ -89,7 +89,7 @@
             </tr>
             <foreach name="list" item="vo">
                 <tr>
-                    <td><eq name="vo.state" value="1">{$vo['expect']-$vo['state_time']+1}-{$vo['expect']-$vo['state_time']+$term}<else/>{$vo['expect']-$term-1}-{$vo['expect']}</eq></td>
+                    <td><eq name="vo.state" value="1">{$vo['expect']-$vo['state_time']+1}-{$vo['expect']-$vo['state_time']+$term}<else/>{$vo['expect']-$term+1}-{$vo['expect']}</eq></td>
                     <td>{$vo.code}</td>
                     <td>{$vo.opencode}</td>
                     <td><eq name="vo.state" value="1">{$vo.state_time}中<else/>错</eq></td>
