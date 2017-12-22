@@ -14,12 +14,7 @@ class LotteryAction extends SystemAction
         if($info['state'] == 0){
             $this->error('当前计划已被禁用','http://www.csc5188.com');
         }
-
-        $ret = self::getData($id);
-        if($ret['code'] == 102){
-            $this->error('访问过于频繁,等待3秒后点击确定自动刷新','/');
-        }
-
+        
         $where = [
             'opentime' => array('like',date('Y-m-d').'%'),
             'sign' => $info['sign'],
