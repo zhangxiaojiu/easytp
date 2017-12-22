@@ -162,11 +162,11 @@ class LotteryAction extends SystemAction
     //获取返回状态和次数
     public static function getCodeRet($sign,$i,$a,$term){
         if(in_array($i,$a)){
-            self::updatePlan($sign);
+            self::updatePlan($sign,$i);
             $ret = ['code'=>100,'msg'=>'right'];
         }else{
             if(self::getContinuityTerm($sign,$term) == $term){
-                self::updatePlan($sign);
+                self::updatePlan($sign,$i);
                 $ret = ['code'=>101,'msg'=>'wrong enough times'];
             }else {
                 $ret = ['code' => 102, 'msg' => 'wrong'];
@@ -197,7 +197,7 @@ class LotteryAction extends SystemAction
     }
 
     //更新计划
-    public static function updatePlan($sign){
+    public static function updatePlan($sign,$e=0){
         //重庆时时彩
         $info = M('lottery')->where(['sign'=>$sign])->find();
         if($sign == 'cqssc'){
@@ -225,16 +225,6 @@ class LotteryAction extends SystemAction
         //腾讯分分彩
         if($sign == 'ffcqq'){
             //$num = NoRand(0,9,3);
-            $where = [
-                'sign' => $sign,
-                'status' => 1
-            ];
-            $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
-            if(empty($newLog)){
-                $e = 0;
-            }else{
-                $e = explode(',',$newLog['opencode'])[4];
-            }
             $b = rand(0,1);
             switch($e){
                 case 0:
