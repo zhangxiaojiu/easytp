@@ -45,24 +45,14 @@ class LotteryAction extends SystemAction
         $url = $info['api'];
         //腾讯分分彩
         if($sign == 'ffcqq'){
-            $params['uid'] = '907243';
-            $params['token'] = '69369d1ff36faefcf65c4ae32014f1e5b48bb267';
-            $params['name'] = $sign;
-            $params['format'] = 'json';
-            $params['num'] = 1;
-            $ret = http_curl($url,$params);
+            $ret = http_curl($url);
             $res = json_decode($ret,true);
-            if($res['status']['code'] == 403){
-                $data = null;
-            }else{
-                $data = $res;
-            }
+            $data[0] = $res[0];
         }else{
             $ret = http_curl($url);
             $res = json_decode($ret,true);
             $data = $res['data'];
         }
-
         if(empty($data)){
             return ['code'=>102,'msg'=>'刷新频率太快'];
         }
@@ -74,9 +64,9 @@ class LotteryAction extends SystemAction
         $expect = $beforeLog['expect'];
         foreach($data as $k=>$v) {
             if($sign == 'ffcqq'){
-                $newExpect = $k;
-                $openCode = $v['number'];
-                $openTime = $v['dateline'];
+                $newExpect = str_replace('-','',$v['issue']);
+                $openCode = $v['code'];
+                $openTime = date('Y-m-d H:i:s', substr($v['time'],0,-3));
             }else {
                 $newExpect = $v['expect'];
                 $openCode = $v['opencode'];
@@ -234,11 +224,61 @@ class LotteryAction extends SystemAction
         }
         //腾讯分分彩
         if($sign == 'ffcqq'){
-            $num = NoRand(0,9,3);
-            asort($num);
-            $code = implode(',', $num);
+            //$num = NoRand(0,9,3);
+            $where = [
+                'sign' => $sign,
+            ];
+            $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
+            if(empty($newLog)){
+                $e = 0;
+            }else{
+                $e = explode(',',$newLog['opencode'])[4];
+            }
+            $b = rand(0,1);
+            switch($e){
+                case 0:
+                    $num = '3,6,9';
+                    break;
+                case 1:
+                    $num = '4,6,7';
+                    break;
+                case 2:
+                    $num = '3,5,8';
+                    break;
+                case 3:
+                    if($b == 1){
+                        $num = '2,5,8';
+                    }else {
+                        $num = '0,6,9';
+                    }
+                    break;
+                case 4:
+                    $num = '1,6,7';
+                    break;
+                case 5:
+                    $num = '2,3,8';
+                    break;
+                case 6:
+                    if($b == 1){
+                        $num = '1,4,7';
+                    }else {
+                        $num = '0,3,9';
+                    }
+                    break;
+                case 7:
+                    $num = '1,4,6';
+                    break;
+                case 8:
+                    $num = '2,3,5';
+                    break;
+                case 9:
+                    $num = '0,3,6';
+                    break;
+                default:
+                    $num = '3,6,9';
+            }
             $data =[
-                'nums'=>$code
+                'nums'=>$num
             ];
         }
 
