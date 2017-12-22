@@ -227,6 +227,7 @@ class LotteryAction extends SystemAction
             //$num = NoRand(0,9,3);
             $where = [
                 'sign' => $sign,
+                'status' => 1
             ];
             $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
             if(empty($newLog)){
