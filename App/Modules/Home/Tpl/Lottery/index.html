@@ -26,10 +26,15 @@
             <php>
                 $opencode = explode(',',$new['opencode']);
                 $expect = substr($new['expect'],-3);
+                if($info['id'] == 3){
+                    $term = 5;
+                }else{
+                    $term = 3;
+                }
             </php>
             <div class="middlecount">
                 <div id="cqsscdt" style=""><h2>第{$expect}期开奖号码</h2>
-                    <div class="cqssc-nums" <eq name="info.sign" value="cqssc">style="padding-left:90px;"</eq>>
+                    <div class="cqssc-nums" <eq name="info.sign" value="bjpk10"><else/>style="padding-left:90px;"</eq>>
                         <foreach name="opencode" item="v">
                             <span>{$v}</span>
                         </foreach>
@@ -49,13 +54,12 @@
     </div>
     <table style="margin:0 auto;" border="0" align="center" cellpadding="0" cellspacing="0">
         <tbody><tr>
-            <td><a href="/index.php?id=1"> <img src="/Public/source/hnguo/plan/gwjh.png" width="140" height="64" alt="定位计划"></a></td>
+            <td><a href="/index.php?id=1"> <img src="/Public/source/hnguo/plan/cqssc.png" width="140" height="64" alt="定位计划"></a></td>
             <!--<td><a href=""><img src="/Public/source/hnguo/plan/h2zx.png" width="164" height="64" alt="后二直选"></a></td>-->
             <!--<td><a href=""><img src="/Public/source/hnguo/plan/h3zx.png" width="167" height="64" alt="后三直选"></a></td>-->
             <!--<td><a href=""><img src="/Public/source/hnguo/plan/h2z6.png" alt="后三组六" width="167" height="64" border="0"></a></td>-->
-            <td>
-                <a href="/index.php?id=2"><img src="/Public/source/hnguo/plan/pk10.png" alt="北京赛车pk10" width="150" height="64" border="0"></a>
-            </td>
+            <td><a href="/index.php?id=2"><img src="/Public/source/hnguo/plan/pk10.png" alt="北京赛车pk10" width="150" height="64" border="0"></a></td>
+            <td><a href="/index.php?id=3"><img src="/Public/source/hnguo/plan/ffcqq.png" alt="腾讯分分彩" width="150" height="64" border="0"></a></td>
         </tr>
         </tbody>
     </table>
@@ -66,7 +70,11 @@
         .plan-list tr td{font-size:20px;}
     </style>
     <div class="width_1000" style="text-align: center;">
-        <b style="font-size:24px; color:blue;">财神城团队分析师推荐<br><span style="color:red;font-size:24px;"><if condition="($new['state'] eq 0) AND ($new['status'] neq 1)">{$expect+1-$new.state_time}-{$expect+3-$new.state_time}<else/>{$expect+1}-{$expect+3}</if>期 <eq name='info.id' value='1'>个位</eq><eq name='info.id' value='2'>冠军</eq>【<empty name="info.nums">等待分析</empty>{$info.nums}】{$expect+1}期 等开</span></b>
+        <b style="font-size:24px; color:blue;">财神城团队分析师推荐<br>
+            <span style="color:red;font-size:24px;">
+                <if condition="($new['state'] eq 0) AND ($new['status'] neq 1)">{$expect+1-$new.state_time}-{$expect+$term-$new.state_time}<else/>{$expect+1}-{$expect+$term}</if>期
+                <eq name='info.id' value='1'>个位</eq><eq name='info.id' value='2'>冠军</eq><eq name='info.id' value='3'>个位</eq>【<empty name="info.nums">等待分析</empty>{$info.nums}】{$expect+1}期 等开</span>
+        </b>
         <br><br><span style="font-size: 16px;">我们3期一个计划，计划中奖则更新计划，3期不中也更新计划。</span>
         <br><br><span style="font-size: 16px; color:blue;">网页自动刷新，请不要频繁刷新。网址：www.csc5188.com</span>
     </div>
@@ -81,7 +89,7 @@
             </tr>
             <foreach name="list" item="vo">
                 <tr>
-                    <td><eq name="vo.state" value="1">{$vo['expect']-$vo['state_time']+1}-{$vo['expect']-$vo['state_time']+3}<else/>{$vo['expect']-2}-{$vo['expect']}</eq></td>
+                    <td><eq name="vo.state" value="1">{$vo['expect']-$vo['state_time']+1}-{$vo['expect']-$vo['state_time']+$term}<else/>{$vo['expect']-$term-1}-{$vo['expect']}</eq></td>
                     <td>{$vo.code}</td>
                     <td>{$vo.opencode}</td>
                     <td><eq name="vo.state" value="1">{$vo.state_time}中<else/>错</eq></td>

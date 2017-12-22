@@ -48,9 +48,26 @@ class LotteryAction extends SystemAction
         }
         $sign = $info['sign'];
         $url = $info['api'];
-        $ret = http_curl($url);
-        $res = json_decode($ret,true);
-        $data = $res['data'];
+        //腾讯分分彩
+        if($sign == 'ffcqq'){
+            $params['uid'] = '907243';
+            $params['token'] = '69369d1ff36faefcf65c4ae32014f1e5b48bb267';
+            $params['name'] = $sign;
+            $params['format'] = 'json';
+            $params['num'] = 1;
+            $ret = http_curl($url,$params);
+            $res = json_decode($ret,true);
+            if($res['status']['code'] == 403){
+                $data = null;
+            }else{
+                $data = $res;
+            }
+        }else{
+            $ret = http_curl($url);
+            $res = json_decode($ret,true);
+            $data = $res['data'];
+        }
+
         if(empty($data)){
             return ['code'=>102,'msg'=>'刷新频率太快'];
         }
@@ -60,37 +77,48 @@ class LotteryAction extends SystemAction
         ];
         $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
         $expect = $beforeLog['expect'];
+        foreach($data as $k=>$v) {
+            if($sign == 'ffcqq'){
+                $newExpect = $k;
+                $openCode = $v['number'];
+                $openTime = $v['dateline'];
+            }else {
+                $newExpect = $v['expect'];
+                $openCode = $v['opencode'];
+                $openTime = $v['opentime'];
+            }
+            if ($newExpect <= $expect && !empty($expect)) {
+                return ['code' => 103, 'msg' => '没有最新一期'];
+            }
+            if ($info['nums'] == '') {
+                self::updatePlan($sign);
+                $info = self::getInfo($id);
+            }
+            $con = [
+                'sign' => $sign,
+                'expect' => $newExpect,
+                'code' => $info['nums'],
+                'opencode' => $openCode,
+                'opentime' => $openTime,
+                'createtime' => date('Y-m-d H:i:s'),
+                'status' => 1,
+            ];
 
-        if($data[0]['expect'] <= $expect && !empty($expect)){
-            return ['code'=>103,'msg'=>'没有最新一期'];
-        }
-        if($info['nums'] == ''){
-            self::updatePlan($sign);
-            $info = self::getInfo($id);
-        }
-        $con = [
-            'sign' => $sign,
-            'expect' => $data[0]['expect'],
-            'code' => $info['nums'],
-            'opencode' => $data[0]['opencode'],
-            'opentime' => $data[0]['opentime'],
-            'createtime' => date('Y-m-d H:i:s'),
-            'status' => 1,
-        ];
-        $isCode = self::isCode($sign,$info['nums'],$data[0]['opencode']);
-        if($isCode['code'] == 102){
-            $con['state'] = 0;
-            $con['status'] = 0;
-        }else{
-            if($isCode['code'] == 100){
-                $con['state'] = 1;
-            }
-            if($isCode['code'] == 101){
+            $isCode = self::isCode($sign, $info['nums'], $openCode);
+            if ($isCode['code'] == 102) {
                 $con['state'] = 0;
+                $con['status'] = 0;
+            } else {
+                if ($isCode['code'] == 100) {
+                    $con['state'] = 1;
+                }
+                if ($isCode['code'] == 101) {
+                    $con['state'] = 0;
+                }
             }
+            $con['state_time'] = $isCode['times'];
+            M('lotteryPlan')->add($con);
         }
-        $con['state_time'] = $isCode['times'];
-        M('lotteryPlan')->add($con);
         return ['code'=>100,'msg'=>'获取成功'];
     }
 
@@ -123,55 +151,64 @@ class LotteryAction extends SystemAction
 
     //判断是否预测中
     public static function isCode($sign,$code,$opencode){
-        //查询前两次记录做判断
-        $where = [
-            'opentime' => array('like',date('Y-m-d').'%'),
-            'sign' => $sign,
-        ];
-        $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(2)->select();
         //重庆时时彩
         if($sign == 'cqssc'){
             $i = explode(',',$opencode)[4];
             $a = explode(',',$code);
-            if(in_array($i,$a)){
-                self::updatePlan($sign);
-                $ret = ['code'=>100,'msg'=>'right'];
-            }else{
-                if($beforeLog[0]['state'] == 0 && $beforeLog[0]['status'] != 1 && $beforeLog[1]['state'] == 0 && $beforeLog[1]['status'] != 1 && !empty($beforeLog[0]) && !empty($beforeLog[1])){
-                    self::updatePlan($sign);
-                    $ret = ['code'=>101,'msg'=>'wrong three times'];
-                }else {
-                    $ret = ['code' => 102, 'msg' => 'wrong'];
-                }
-            }
+            $term = 3;
+            return self::getCodeRet($sign,$i,$a,$term);
         }
         //北京赛车PK10
-        if($sign =='bjpk10'){
+        if($sign == 'bjpk10'){
             $i = explode(',',$opencode)[0];
             $a = explode(',',$code);
-            if(in_array($i,$a)){
-                self::updatePlan($sign);
-                $ret = ['code'=>100,'msg'=>'right'];
-            }else{
-                if($beforeLog[0]['state'] == 0 && $beforeLog[0]['status'] != 1 && $beforeLog[1]['state'] == 0 && $beforeLog[1]['status'] != 1 && !empty($beforeLog[0]) && !empty($beforeLog[1])){
-                    self::updatePlan($sign);
-                    $ret = ['code'=>101,'msg'=>'wrong three times'];
-                }else {
-                    $ret = ['code' => 102, 'msg' => 'wrong'];
-                }
-            }
+            $term = 3;
+            return self::getCodeRet($sign,$i,$a,$term);
         }
-        if($beforeLog[0]['state'] == 1){
-            $ret['times'] = 1;
-        }else if($beforeLog[0]['state'] == 0 && $beforeLog[0]['status'] == 0 && !empty($beforeLog[0])){
-            $ret['times'] = 2;
-            if($beforeLog[1]['state'] == 0 && $beforeLog[1]['status'] == 0 && !empty($beforeLog[1])){
-                $ret['times'] = 3;
-            }
+        //腾讯分分彩
+        if($sign == 'ffcqq'){
+            $i = explode(',',$opencode)[4];
+            $a = explode(',',$code);
+            $term = 5;
+            return self::getCodeRet($sign,$i,$a,$term);
+        }
+    }
+
+    //获取返回状态和次数
+    public static function getCodeRet($sign,$i,$a,$term){
+        if(in_array($i,$a)){
+            self::updatePlan($sign);
+            $ret = ['code'=>100,'msg'=>'right'];
         }else{
-            $ret['times'] = 1;
+            if(self::getContinuityTerm($sign,$term) == $term){
+                self::updatePlan($sign);
+                $ret = ['code'=>101,'msg'=>'wrong enough times'];
+            }else {
+                $ret = ['code' => 102, 'msg' => 'wrong'];
+            }
         }
+        $ret['times'] = self::getContinuityTerm($sign,$term);
         return $ret;
+    }
+
+    //
+    private static function getContinuityTerm($sign,$term){
+        //查询前几期记录做判断
+        $where = [
+            'opentime' => array('like',date('Y-m-d').'%'),
+            'sign' => $sign,
+        ];
+        $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit($term-1)->select();
+
+        $term = 1;
+        foreach ($beforeLog as $k=>$v){
+            if($v['state'] == 0 && $v['status'] == 0 && !empty($v)){
+                $term = $k + 2;
+            }else{
+                break;
+            }
+        }
+        return $term;
     }
 
     //更新计划
@@ -197,6 +234,15 @@ class LotteryAction extends SystemAction
             }
             $code = implode(',',$num);
             $data = [
+                'nums'=>$code
+            ];
+        }
+        //腾讯分分彩
+        if($sign == 'ffcqq'){
+            $num = NoRand(0,9,3);
+            asort($num);
+            $code = implode(',', $num);
+            $data =[
                 'nums'=>$code
             ];
         }
