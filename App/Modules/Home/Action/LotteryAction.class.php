@@ -43,8 +43,8 @@ class LotteryAction extends SystemAction
         }
         $sign = $info['sign'];
         $url = $info['api'];
-        //腾讯分分彩
-        if($sign == 'ffcqq'){
+        //获取数据
+        if($sign == 'ffcqq' || $sign == 'ffcqq_wxdwd'){
             $ret = http_curl($url);
             $res = json_decode($ret,true);
             $data[0] = $res[0];
@@ -63,7 +63,7 @@ class LotteryAction extends SystemAction
         $beforeLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
         $expect = $beforeLog['expect'];
         foreach($data as $k=>$v) {
-            if($sign == 'ffcqq'){
+            if($sign == 'ffcqq' || $sign == 'ffcqq_wxdwd'){
                 $newExpect = str_replace('-','',$v['issue']);
                 $openCode = $v['code'];
                 $openTime = date('Y-m-d H:i:s', substr($v['time'],0,-3));
@@ -154,6 +154,13 @@ class LotteryAction extends SystemAction
         if($sign == 'ffcqq'){
             $i = explode(',',$opencode)[4];
             $a = explode(',',$code);
+            $term = 3;
+            return self::getCodeRet($sign,$i,$a,$term);
+        }
+        //腾讯分分彩-五星定位胆
+        if($sign == 'ffcqq_wxdwd'){
+            $i = $code;
+            $a = explode(',',$opencode);
             $term = 3;
             return self::getCodeRet($sign,$i,$a,$term);
         }
@@ -270,6 +277,14 @@ class LotteryAction extends SystemAction
             $num = NoRand(0,9,5);
             asort($num);
             $code = implode(',',$num);
+            $data =[
+                'nums'=>$code
+            ];
+        }
+        //腾讯分分彩-五星定位胆
+        if($sign == 'ffcqq_wxdwd'){
+            $num = NoRand(0,9,1);
+            $code = $num[0];
             $data =[
                 'nums'=>$code
             ];
