@@ -7,7 +7,7 @@
     <meta name="description" content="{$web.description}">
 </head>
 <body>
-<meta http-equiv="refresh" content="<eq name='info.sign' value='ffcqq'>10<else/>60</eq>;url=/index.php?id={$info.id}">
+<meta http-equiv="refresh" content="10;url=/index.php?id={$info.id}">
 <link href="/Public/source/hnguo/plan/style.css" rel="stylesheet" type="text/css">
 <div class="main">
     <div class="width_1000">
@@ -73,7 +73,7 @@
         <b style="font-size:24px; color:blue;">财神城团队分析师推荐<br>
             <span style="color:red;font-size:24px;">
                 <if condition="($new['state'] eq 0) AND ($new['status'] neq 1)">{$expect+1-$new.state_time}-{$expect+$term-$new.state_time}<else/>{$expect+1}-{$expect+$term}</if>期
-                <eq name='info.id' value='1'>个位</eq><eq name='info.id' value='2'>冠军</eq><eq name='info.id' value='3'>个位</eq>【<empty name="info.nums">等待分析</empty>{$info.nums}】{$expect+1}期 等开</span>
+                <eq name='info.id' value='1'>个位</eq><eq name='info.id' value='2'>冠军</eq><eq name='info.id' value='3'>个位</eq>【<eq name="info.nums" value="">等待分析</eq>{$info.nums}】{$expect+1}期 等开</span>
         </b>
         <br><br><span style="font-size: 16px;">我们{$term}期一个计划，计划中奖则更新计划，{$term}期不中也更新计划。</span>
         <br><br><span style="font-size: 16px; color:blue;">网页自动刷新，请不要频繁刷新。网址：www.csc5188.com</span>
