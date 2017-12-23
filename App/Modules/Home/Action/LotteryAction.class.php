@@ -300,7 +300,7 @@ class LotteryAction extends SystemAction
                 $i = rand(0,3);
                 $code = $two[$i];
             }
-            if(in_array($r,$one)){
+            if(in_array($r,$three)){
                 $i = rand(0,2);
                 $code = $three[$i];
             }
