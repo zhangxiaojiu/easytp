@@ -169,11 +169,11 @@ class LotteryAction extends SystemAction
     //获取返回状态和次数
     public static function getCodeRet($sign,$i,$a,$term){
         if(in_array($i,$a)){
-            self::updatePlan($sign,$i);
+            self::updatePlan($sign,$i,$a);
             $ret = ['code'=>100,'msg'=>'right'];
         }else{
             if(self::getContinuityTerm($sign,$term) == $term){
-                self::updatePlan($sign,$i);
+                self::updatePlan($sign,$i,$a);
                 $ret = ['code'=>101,'msg'=>'wrong enough times'];
             }else {
                 $ret = ['code' => 102, 'msg' => 'wrong'];
@@ -204,7 +204,7 @@ class LotteryAction extends SystemAction
     }
 
     //更新计划
-    public static function updatePlan($sign,$e=0){
+    public static function updatePlan($sign,$e=0,$a=[]){
         //重庆时时彩
         $info = M('lottery')->where(['sign'=>$sign])->find();
         if($sign == 'cqssc'){
@@ -283,8 +283,27 @@ class LotteryAction extends SystemAction
         }
         //腾讯分分彩-五星定位胆
         if($sign == 'ffcqq_wxdwd'){
-            $num = NoRand(0,9,1);
-            $code = $num[0];
+            if(empty($a)){
+                $r = 2;
+            }else {
+                $r = $a[4];
+            }
+
+            $one = [1,4,7];
+            $two = [2,3,5,8];
+            $three = [0,6,9];
+            if(in_array($r,$one)){
+                $i = rand(0,2);
+                $code = $one[$i];
+            }
+            if(in_array($r,$two)){
+                $i = rand(0,3);
+                $code = $two[$i];
+            }
+            if(in_array($r,$one)){
+                $i = rand(0,2);
+                $code = $three[$i];
+            }
             $data =[
                 'nums'=>$code
             ];
