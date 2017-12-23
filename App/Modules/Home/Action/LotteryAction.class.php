@@ -154,7 +154,7 @@ class LotteryAction extends SystemAction
         if($sign == 'ffcqq'){
             $i = explode(',',$opencode)[4];
             $a = explode(',',$code);
-            $term = 5;
+            $term = 3;
             return self::getCodeRet($sign,$i,$a,$term);
         }
     }
@@ -224,52 +224,54 @@ class LotteryAction extends SystemAction
         }
         //腾讯分分彩
         if($sign == 'ffcqq'){
-            //$num = NoRand(0,9,3);
-            $b = rand(0,1);
-            switch($e){
-                case 0:
-                    $num = '3,6,9';
-                    break;
-                case 1:
-                    $num = '4,6,7';
-                    break;
-                case 2:
-                    $num = '3,5,8';
-                    break;
-                case 3:
-                    if($b == 1){
-                        $num = '2,5,8';
-                    }else {
-                        $num = '0,6,9';
-                    }
-                    break;
-                case 4:
-                    $num = '1,6,7';
-                    break;
-                case 5:
-                    $num = '2,3,8';
-                    break;
-                case 6:
-                    if($b == 1){
-                        $num = '1,4,7';
-                    }else {
-                        $num = '0,3,9';
-                    }
-                    break;
-                case 7:
-                    $num = '1,4,6';
-                    break;
-                case 8:
-                    $num = '2,3,5';
-                    break;
-                case 9:
-                    $num = '0,3,6';
-                    break;
-                default:
-                    $num = '3,6,9';
-            }
+//            $b = rand(0,1);
+//            switch($e){
+//                case 0:
+//                    $num = '3,6,9';
+//                    break;
+//                case 1:
+//                    $num = '4,6,7';
+//                    break;
+//                case 2:
+//                    $num = '3,5,8';
+//                    break;
+//                case 3:
+//                    if($b == 1){
+//                        $num = '2,5,8';
+//                    }else {
+//                        $num = '0,6,9';
+//                    }
+//                    break;
+//                case 4:
+//                    $num = '1,6,7';
+//                    break;
+//                case 5:
+//                    $num = '2,3,8';
+//                    break;
+//                case 6:
+//                    if($b == 1){
+//                        $num = '1,4,7';
+//                    }else {
+//                        $num = '0,3,9';
+//                    }
+//                    break;
+//                case 7:
+//                    $num = '1,4,6';
+//                    break;
+//                case 8:
+//                    $num = '2,3,5';
+//                    break;
+//                case 9:
+//                    $num = '0,3,6';
+//                    break;
+//                default:
+//                    $num = '3,6,9';
+//            }
+            $num = NoRand(0,9,5);
+            asort($num);
+            $code = implode(',',$num);
             $data =[
-                'nums'=>$num
+                'nums'=>$code
             ];
         }
 
