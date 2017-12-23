@@ -289,21 +289,32 @@ class LotteryAction extends SystemAction
                 $r = $a[4];
             }
 
-            $one = [1,4,7];
+            $one = [1,4,6,7];
             $two = [2,3,5,8];
-            $three = [0,6,9];
-            if(in_array($r,$one)){
-                $i = rand(0,2);
+            $three = [0,3,6,9];
+            $four = [0,3,6,9,2,5,8];
+            $five = [0,3,6,9,1,4,7];
+            if(in_array($r,[1,4,7])){
+                $i = rand(0,3);
                 $code = $one[$i];
             }
-            if(in_array($r,$two)){
+            if(in_array($r,[2,5,8])){
                 $i = rand(0,3);
                 $code = $two[$i];
             }
-            if(in_array($r,$three)){
+            if(in_array($r,[0,9])){
                 $i = rand(0,2);
                 $code = $three[$i];
             }
+            if($r == 3){
+                $i = rand(0,6);
+                $code = $four[$i];
+            }
+            if($r == 6){
+                $i = rand(0,6);
+                $code = $five[$i];
+            }
+
             $data =[
                 'nums'=>$code
             ];
