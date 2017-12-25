@@ -23,6 +23,10 @@ Class LotteryAction extends CommonAction{
     Public function runLotteryInfo(){
         $id = I('request.id','');
         $uid = session('uid');
+        $plan = I('request.plan','');
+        $term = I('request.term','');
+        $logo = I('request.logo','');
+        $termNum = I('request.term_num','');
         $name = I('request.name','');
         $sign = I('request.sign','');
         $api = I('request.api','');
@@ -34,6 +38,10 @@ Class LotteryAction extends CommonAction{
             $data = [
                 'uid' => $uid,
                 'name' => $name,
+                'plan' => $plan,
+                'term' => $term,
+                'logo' => $logo,
+                'term_num' => $termNum,
                 'sign' => $sign,
                 'api' => $api,
                 'nums' => $nums,

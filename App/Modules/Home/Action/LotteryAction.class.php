@@ -89,7 +89,7 @@ class LotteryAction extends SystemAction
                 'status' => 1,
             ];
 
-            $isCode = self::isCode($sign, $info['nums'], $openCode);
+            $isCode = self::isCode($sign, $info['nums'], $openCode,$info['term']);
             if ($isCode['code'] == 102) {
                 $con['state'] = 0;
                 $con['status'] = 0;
@@ -113,6 +113,7 @@ class LotteryAction extends SystemAction
     public function autoRefreshData(){
         $where = [
             'uid' => 1,
+            'state' => 1,
         ];
         $list = M('lottery')->where($where)->select();
         foreach($list as $v){
@@ -135,40 +136,35 @@ class LotteryAction extends SystemAction
     }
 
     //判断是否预测中
-    public static function isCode($sign,$code,$opencode){
+    public static function isCode($sign,$code,$opencode,$term){
         //重庆时时彩
         if($sign == 'cqssc'){
             $i = explode(',',$opencode)[4];
             $a = explode(',',$code);
-            $term = 3;
             return self::getCodeRet($sign,$i,$a,$term);
         }
         //北京赛车PK10
         if($sign == 'bjpk10'){
             $i = explode(',',$opencode)[0];
             $a = explode(',',$code);
-            $term = 3;
             return self::getCodeRet($sign,$i,$a,$term);
         }
         //腾讯分分彩
         if($sign == 'ffcqq'){
             $i = explode(',',$opencode)[4];
             $a = explode(',',$code);
-            $term = 3;
             return self::getCodeRet($sign,$i,$a,$term);
         }
         //腾讯分分彩-五星定位胆
         if($sign == 'ffcqq_wxdwd'){
             $i = $code;
             $a = explode(',',$opencode);
-            $term = 3;
             return self::getCodeRet($sign,$i,$a,$term);
         }
         //腾讯分分彩-五星定位胆-五期
         if($sign == 'ffcqq_wxdwd_5'){
             $i = $code;
             $a = explode(',',$opencode);
-            $term = 5;
             return self::getCodeRet($sign,$i,$a,$term);
         }
     }
