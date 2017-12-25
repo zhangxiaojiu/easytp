@@ -85,6 +85,7 @@
         <table class="plan-list">
             <tr>
                 <th>期数</th>
+                <th>计划</th>
                 <th>预测号码</th>
                 <th>开奖号码</th>
                 <th>状态</th>
@@ -93,6 +94,7 @@
             <foreach name="list" item="vo">
                 <tr>
                     <td><eq name="vo.state" value="1">{$vo['expect']-$vo['state_time']+1|substr=###,0-$info['term_num']}-{$vo['expect']-$vo['state_time']+$term|substr=###,0-$info['term_num']}<else/>{$vo['expect']-$term+1|substr=###,0-$info['term_num']}-{$vo['expect']|substr=###,0-$info['term_num']}</eq></td>
+                    <td>{$vo.plan}</td>
                     <td>{$vo.code}</td>
                     <td>{$vo.opencode}</td>
                     <td><eq name="vo.state" value="1">{$vo.state_time}中<else/>错</eq></td>
