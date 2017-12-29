@@ -11,7 +11,7 @@ class RecordAction extends SystemAction
     public function index(){
         $sign = I('get.sign','');
         if(empty($sign)){
-            $this->error('参数错误');
+            $sign = 'cqssc';
         }
 
         $con = [
