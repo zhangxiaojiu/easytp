@@ -20,6 +20,7 @@ return array(
     'APP_SUB_DOMAIN_RULES'    =>    array(
         'csc5188.com'  => array('Home/Lottery'),
         'www.csc5188.com'   => array('Home/Lottery'),
+        'record.csc5188.com'   => array('Home/Record'),
         'ssc188888888.com'  => array('Home/'),
         'www.ssc188888888.com'   => array('Home/'),
         'admin.ssc188888888.com'   => array('Admin/')

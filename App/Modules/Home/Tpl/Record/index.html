@@ -1,0 +1,44 @@
+<include file="Public/header"/>
+<div class="container theme-showcase">
+    <div class="jumbotron">
+        <h2>财神城记录统计</h2>
+        <p>统计遗漏，帮你保驾护航</p>
+    </div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" <eq name="sign" value="cqssc">class="active"</eq>><a href="/?sign=cqssc">重庆时时彩</a></li>
+        <li role="presentation" <eq name="sign" value="bjpk10">class="active"</eq>><a href="/?sign=bjpk10">北京赛车PK10</a></li>
+        <li role="presentation" <eq name="sign" value="ffcqq">class="active"</eq>><a href="/?sign=ffcqq">腾讯分分彩</a></li>
+    </ul>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>位数\遗漏数字</th>
+            <th><button type="button" class="btn btn-info">1</button></th>
+            <th><button type="button" class="btn btn-info">2</button></th>
+            <th><button type="button" class="btn btn-info">3</button></th>
+            <th><button type="button" class="btn btn-info">4</button></th>
+            <th><button type="button" class="btn btn-info">5</button></th>
+            <th><button type="button" class="btn btn-info">6</button></th>
+            <th><button type="button" class="btn btn-info">7</button></th>
+            <th><button type="button" class="btn btn-info">8</button></th>
+            <th><button type="button" class="btn btn-info">9</button></th>
+            <th><button type="button" class="btn btn-info"><eq name="sign" value="bjpk10">10<else/>0</eq></button></th>
+        </tr>
+        </thead>
+        <php>
+            $weishu = [0=>'万位',1=>'千位',2=>'百位',3=>'十位',4=>'个位'];
+            $mingci = [0=>'冠军',1=>'亚军',2=>'季军',3=>'第四',4=>'第五'];
+        </php>
+        <tbody>
+        <foreach name="list" item="v" key="k">
+            <tr>
+                <td><eq name="sign" value="bjpk10">{$mingci[$k]}<else/>{$weishu[$k]}</eq></td>
+                <foreach name="v" item="vo">
+                    <td>{$vo.num}</td>
+                </foreach>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+</div>
+<include file="Public/footer"/>
