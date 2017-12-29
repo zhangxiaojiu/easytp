@@ -103,4 +103,49 @@ Class LotteryAction extends CommonAction{
         p($arr);
         $this->display();
     }
+
+    /*
+     * 历史统计
+     */
+    public function history(){
+        $list = [
+            0 => [
+                'sign' => 'cqssc',
+                'name' => '重庆时时彩',
+            ],
+            1 => [
+                'sign' => 'bjpk10',
+                'name' => '北京赛车PK10',
+            ],
+            2 => [
+                'sign' => 'ffcqq',
+                'name' => '腾讯分分彩',
+            ],
+        ];
+
+        foreach($list as $v){
+            $temp = [];
+            $data = [];
+            $data['plan'] = $v['name'];
+            $sign = $v['sign'];
+            $con = [
+                'opentime' => array('like',date('Y-m-d').'%'),
+                'sign' => $sign,
+            ];
+            $res = M('lotteryPlan')->where($con)->select();
+            foreach($res as $val){
+                $code = explode(',',$val['opencode']);
+                foreach($code as $k => $vo){
+                    if($k > 4){
+                        break;
+                    }
+                    $temp[$k][$vo]++;
+                }
+                $data['record'] = $temp;
+            }
+            $ret[] = $data;
+        }
+        $this->assign('ret',$ret);
+        $this->display();
+    }
 }

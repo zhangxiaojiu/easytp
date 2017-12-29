@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <css file='__PUBLIC__/Css/public.css'/>
+</head>
+<body>
+<div style="padding: 10px;">
+    <h4>当日计划统计</h4>
+</div>
+<table class="table">
+    <tr>
+        <td align="center">计划</td>
+        <td align="center">万位（冠军）</td>
+        <td align="center">千位（亚军）</td>
+        <td align="center">百位（季军）</td>
+        <td align="center">十位（第四）</td>
+        <td align="center">个位（第五）</td>
+    </tr>
+    <foreach name="ret" item="v">
+        <tr>
+            <td>{$v.plan}</td>
+            <foreach name="v.record" item="vo">
+                <td>
+                    <foreach name="vo" key="key" item="val">
+                        ({$key}){$val}次　
+                    </foreach>
+                </td>
+            </foreach>
+        </tr>
+    </foreach>
+</table>
+</body>
+</html>
