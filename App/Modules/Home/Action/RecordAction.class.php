@@ -15,14 +15,47 @@ class RecordAction extends SystemAction
         }
 
         $con = [
-            'opentime' => array('like',date('Y-m-d').'%'),
             'sign' => $sign,
         ];
-        $res = M('lotteryPlan')->where($con)->order('id desc')->select();
-        $ret = self::getLast($res);
+        $res = M('lotteryRecord')->where($con)->find();
+        $ret = json_decode($res['record'],true);
+        foreach ($ret as $k => $v){
+            $maxs[$k] = array_search(max($v),$v);
+        }
+        $this->assign('maxs',$maxs);
         $this->assign('sign',$sign);
         $this->assign('list',$ret);
         $this->display();
+    }
+    /*
+     * 自动记录数据
+     */
+    public function autoRecordData(){
+        $list = [
+            ['sign' => 'cqssc'],
+            ['sign' => 'bjpk10'],
+            ['sign' => 'ffcqq'],
+        ];
+        foreach($list as $v){
+            $con = [
+                'opentime' => array('like',date('Y-m-d').'%'),
+                'sign' => $v['sign'],
+            ];
+            $res = M('lotteryPlan')->where($con)->order('id desc')->select();
+            $ret = self::getLast($res);
+
+            $data = [
+                'sign' => $v['sign'],
+                'record' => json_encode($ret),
+                'update_time' => date('Y-m-d H:i:s'),
+                'state' => 1
+            ];
+            if(M('lotteryRecord')->where(['sign'=>$v['sign']])->find()){
+                M('lotteryRecord')->where(['sign'=>$v['sign']])->save($data);
+            }else{
+                M('lotteryRecord')->where(['sign'=>$v['sign']])->add($data);
+            }
+        }
     }
     //返回遗漏
     private static function getLast($res){
