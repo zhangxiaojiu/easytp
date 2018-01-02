@@ -193,11 +193,11 @@ class LotteryAction extends SystemAction
     //获取返回状态和次数
     public static function getCodeRet($sign,$data,$term){
         if(self::isCodeRight($data)){
-            self::updatePlan($sign,$data);
+            self::updatePlan($sign);
             $ret = ['code'=>100,'msg'=>'right'];
         }else{
             if(self::getContinuityTerm($sign,$term) == $term){
-                self::updatePlan($sign,$data);
+                self::updatePlan($sign);
                 $ret = ['code'=>101,'msg'=>'wrong enough times'];
             }else {
                 $ret = ['code' => 102, 'msg' => 'wrong'];
@@ -236,12 +236,28 @@ class LotteryAction extends SystemAction
     }
 
     //更新计划
-    public static function updatePlan($sign,$input = []){
+    public static function updatePlan($sign){
+        //获取统计数据
+        $signRecord = substr($sign,0,strcspn($sign,'_'));
+        $recInfo = M('lotteryRecord')->where(['sign'=>$signRecord])->find();
+        $rec = json_decode($recInfo['record'],true);
         //重庆时时彩
-        $info = M('lottery')->where(['sign'=>$sign])->find();
         if($sign == 'cqssc'){
             $num = NoRand(0,9,5);
             asort($num);
+            $selArr = $rec[4];
+            $max = array_search(max($selArr),$selArr);
+            unset($selArr[$max]);
+            $secMax = array_search(max($selArr),$selArr);
+            if($max == 10){
+                $max = 0;
+            }
+            if($secMax == 10){
+                $secMax = 0;
+            }
+            if(in_array($max,$num) || in_array($secMax,$num)){
+                $num = NoRand(0,9,5);
+            }
             $code = implode(',',$num);
             $data = [
                 'nums'=>$code
@@ -251,6 +267,13 @@ class LotteryAction extends SystemAction
         if($sign == 'bjpk10'){
             $num = NoRand(1,10,5);
             asort($num);
+            $selArr = $rec[0];
+            $max = array_search(max($selArr),$selArr);
+            unset($selArr[$max]);
+            $secMax = array_search(max($selArr),$selArr);
+            if(in_array($max,$num) || in_array($secMax,$num)){
+                $num = NoRand(1,10,5);
+            }
             foreach ($num as &$v){
                 if(strlen($v) == 1){
                     $v = '0'.$v;
@@ -265,6 +288,14 @@ class LotteryAction extends SystemAction
         if($sign == 'ffcqq'){
             $num = NoRand(0,9,5);
             asort($num);
+            $selArr = $rec[4];
+            $max = array_search(max($selArr),$selArr);
+            if($max == 10){
+                $max = 0;
+            }
+            while(in_array($max,$num)){
+                $num = NoRand(0,9,5);
+            }
             $code = implode(',',$num);
             $data =[
                 'nums'=>$code
@@ -283,12 +314,29 @@ class LotteryAction extends SystemAction
             $num2 = NoRand(0,9,7);
             asort($num1);
             asort($num2);
+            $selArr1 = $rec[3];
+            $selArr2 = $rec[4];
+            $max1 = array_search(max($selArr1),$selArr1);
+            $max2 = array_search(max($selArr2),$selArr2);
+            if($max1 == 10){
+                $max1 = 0;
+            }
+            if($max2 == 10){
+                $max2 = 0;
+            }
+            if(in_array($max1,$num1)){
+                $num1= NoRand(0,9,7);
+            }
+            if(in_array($max2,$num2)){
+                $num2= NoRand(0,9,7);
+            }
             $code = implode(',',$num1).'|'.implode(',',$num2);
             $data = [
                 'nums'=>$code
             ];
         }
 
+        $info = M('lottery')->where(['sign'=>$sign])->find();
         if($info['is_auto'] == 0){
             $data['nums'] = '';
         }
