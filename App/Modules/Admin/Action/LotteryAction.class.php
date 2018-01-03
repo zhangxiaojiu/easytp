@@ -108,44 +108,25 @@ Class LotteryAction extends CommonAction{
      * 历史统计
      */
     public function history(){
-        $list = [
-            0 => [
-                'sign' => 'cqssc',
-                'name' => '重庆时时彩',
-            ],
-            1 => [
-                'sign' => 'bjpk10',
-                'name' => '北京赛车PK10',
-            ],
-            2 => [
-                'sign' => 'ffcqq',
-                'name' => '腾讯分分彩',
-            ],
-        ];
-
-        foreach($list as $v){
-            $temp = [];
-            $data = [];
-            $data['plan'] = $v['name'];
-            $sign = $v['sign'];
-            $con = [
-                'opentime' => array('like',date('Y-m-d').'%'),
-                'sign' => $sign,
-            ];
-            $res = M('lotteryPlan')->where($con)->select();
-            foreach($res as $val){
-                $code = explode(',',$val['opencode']);
-                foreach($code as $k => $vo){
-                    if($k > 4){
-                        break;
-                    }
-                    $temp[$k][$vo]++;
-                }
-                $data['record'] = $temp;
-            }
-            $ret[] = $data;
+        $id = I('request.id',1);
+        $info = self::getInfo($id);
+        if($info['state'] == 0){
+            $this->error('当前计划已被禁用','http://www.csc5188.com');
         }
-        $this->assign('ret',$ret);
+
+        $where = [
+            'opentime' => array('like',date('Y-m-d').'%'),
+            'sign' => $info['sign'],
+        ];
+        $list = M('lotteryPlan')->where($where)->order('expect DESC')->select();
+        $title = M('lottery')->where(['state'=>1])->select();
+        $this->assign('title',$title);
+        $this->assign('info',$info);
+        $this->assign('list',$list);
         $this->display();
+    }
+    //获取当前彩票信息
+    public static function getInfo($id){
+        return M('lottery')->where(['id'=>$id])->find();
     }
 }

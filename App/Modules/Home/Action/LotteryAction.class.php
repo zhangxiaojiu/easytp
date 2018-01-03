@@ -20,7 +20,7 @@ class LotteryAction extends SystemAction
             'sign' => $info['sign'],
             'status' => 1,
         ];
-        $list = M('lotteryPlan')->where($where)->order('expect DESC')->select();
+        $list = M('lotteryPlan')->where($where)->order('expect DESC')->limit(200)->select();
         $where = [
             'sign' => $info['sign']
         ];

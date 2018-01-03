@@ -7,29 +7,33 @@
 </head>
 <body>
 <div style="padding: 10px;">
-    <h4>当日计划统计</h4>
+    <foreach name="title" item="v">
+        <a href="/Lottery/history?id={$v.id}"><button>{$v.name}·{$v.plan}</button></a>
+    </foreach>
+</div>
+<div style="padding: 10px;">
+    <h4>{$info.name}·{$info.plan} 历史计划</h4>
 </div>
 <table class="table">
     <tr>
-        <td align="center">计划</td>
-        <td align="center">万位（冠军）</td>
-        <td align="center">千位（亚军）</td>
-        <td align="center">百位（季军）</td>
-        <td align="center">十位（第四）</td>
-        <td align="center">个位（第五）</td>
+        <td align="center">期数</td>
+        <td align="center">预测号码</td>
+        <td align="center">开奖号码</td>
+        <td align="center">开奖时间</td>
+        <td align="center">创建时间</td>
+        <td align="center">次数</td>
     </tr>
-    <foreach name="ret" item="v">
+    <foreach name="list" item="vo">
         <tr>
-            <td>{$v.plan}</td>
-            <foreach name="v.record" item="vo">
-                <td>
-                    <foreach name="vo" key="key" item="val">
-                        ({$key}){$val}次　
-                    </foreach>
-                </td>
-            </foreach>
+            <td>{$vo.expect}</td>
+            <td>{$vo.code}</td>
+            <td>{$vo.opencode}</td>
+            <td>{$vo.opentime}</td>
+            <td>{$vo.createtime}</td>
+            <td>{$vo.state_time}</td>
         </tr>
     </foreach>
+
 </table>
 </body>
 </html>
