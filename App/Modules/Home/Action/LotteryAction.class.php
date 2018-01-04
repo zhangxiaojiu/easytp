@@ -153,6 +153,16 @@ class LotteryAction extends SystemAction
             $data[$i] = $a;
             return self::getCodeRet($sign,$data,$term);
         }
+        //北京赛车PK10 前五定位胆
+        if($sign == 'bjpk10_qwdwd'){
+            $data =[];
+            $i = explode(',',$code)[0];
+            $j = explode(',',$code)[1];
+            $a = array_slice(explode(',',$opencode),0,5);
+            $data[$i] = $a;
+            $data[$j] = $a;
+            return self::getCodeRet($sign,$data,$term,true);
+        }
         //腾讯分分彩
         if($sign == 'ffcqq'){
             $data = [];
@@ -191,13 +201,13 @@ class LotteryAction extends SystemAction
     }
 
     //获取返回状态和次数
-    public static function getCodeRet($sign,$data,$term){
-        if(self::isCodeRight($data)){
-            self::updatePlan($sign);
+    public static function getCodeRet($sign,$data,$term,$or = false){
+        if(self::isCodeRight($data,$or)){
+            self::updatePlan($sign,$data);
             $ret = ['code'=>100,'msg'=>'right'];
         }else{
             if(self::getContinuityTerm($sign,$term) == $term){
-                self::updatePlan($sign);
+                self::updatePlan($sign,$data);
                 $ret = ['code'=>101,'msg'=>'wrong enough times'];
             }else {
                 $ret = ['code' => 102, 'msg' => 'wrong'];
@@ -207,11 +217,14 @@ class LotteryAction extends SystemAction
         return $ret;
     }
     //判断预测码是否正确
-    private static function isCodeRight($data){
+    private static function isCodeRight($data,$or=false){
         $ret = true;
         foreach($data as $k=>$v){
             if(!in_array($k,$v)) {
                 $ret = false;
+            }elseif($or){
+                $ret = true;
+                break;
             }
         }
         return $ret;
@@ -236,7 +249,7 @@ class LotteryAction extends SystemAction
     }
 
     //更新计划
-    public static function updatePlan($sign){
+    public static function updatePlan($sign,$input=[]){
         //获取统计数据
         $signRecord = substr($sign,0,strcspn($sign,'_'));
         $recInfo = M('lotteryRecord')->where(['sign'=>$signRecord])->find();
@@ -273,6 +286,96 @@ class LotteryAction extends SystemAction
             $secMax = array_search(max($selArr),$selArr);
             if(in_array($max,$num) || in_array($secMax,$num)){
                 $num = NoRand(1,10,5);
+            }
+            foreach ($num as &$v){
+                if(strlen($v) == 1){
+                    $v = '0'.$v;
+                }
+            }
+            $code = implode(',',$num);
+            $data = [
+                'nums'=>$code
+            ];
+        }
+        //北京赛车PK10 前五定位
+        if($sign == 'bjpk10_qwdwd'){
+            $num = NoRand(1,10,2);
+            asort($num);
+            if(!empty($input)){
+                foreach ($input as $v){
+                    $p = $v[0]+$v[4];
+                    break;
+                }
+                switch ($p){
+                    case 3:
+                        $num[0] = 4;
+                        $num[1] = 8;
+                        break;
+                    case 4:
+                        $num[0] = 6;
+                        $num[1] = 4;
+                        break;
+                    case 5:
+                        $num[0] = 8;
+                        $num[1] = 10;
+                        break;
+                    case 6:
+                        $num[0] = 9;
+                        $num[1] = 7;
+                        break;
+                    case 7:
+                        $num[0] = 1;
+                        $num[1] = 3;
+                        break;
+                    case 8:
+                        $num[0] = 1;
+                        $num[1] = 2;
+                        break;
+                    case 9:
+                        $num[0] = 1;
+                        $num[1] = 4;
+                        break;
+                    case 10:
+                        $num[0] = 1;
+                        $num[1] = 6;
+                        break;
+                    case 11:
+                        $num[0] = 1;
+                        $num[1] = 7;
+                        break;
+                    case 12:
+                        $num[0] = 1;
+                        $num[1] = 9;
+                        break;
+                    case 13:
+                        $num[0] = 2;
+                        $num[1] = 1;
+                        break;
+                    case 14:
+                        $num[0] = 2;
+                        $num[1] = 6;
+                        break;
+                    case 15:
+                        $num[0] = 2;
+                        $num[1] = 4;
+                        break;
+                    case 16:
+                        $num[0] = 2;
+                        $num[1] = 5;
+                        break;
+                    case 17:
+                        $num[0] = 2;
+                        $num[1] = 7;
+                        break;
+                    case 18:
+                        $num[0] = 2;
+                        $num[1] = 9;
+                        break;
+                    case 19:
+                        $num[0] = 3;
+                        $num[1] = 10;
+                        break;
+                }
             }
             foreach ($num as &$v){
                 if(strlen($v) == 1){
