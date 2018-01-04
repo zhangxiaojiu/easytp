@@ -26,11 +26,7 @@
             <php>
                 $opencode = explode(',',$new['opencode']);
                 $expect = substr($new['expect'],0-$info['term_num']);
-                if($info['id'] == 5){
-                    $term = 5;
-                }else{
-                    $term = 3;
-                }
+                $term = $info['term'];
             </php>
             <div class="middlecount">
                 <div id="cqsscdt" style=""><h2>第{$expect}期开奖号码</h2>
