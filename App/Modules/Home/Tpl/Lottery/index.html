@@ -34,7 +34,7 @@
             </php>
             <div class="middlecount">
                 <div id="cqsscdt" style=""><h2>第{$expect}期开奖号码</h2>
-                    <div class="cqssc-nums" <eq name="info.sign" value="bjpk10"><else/>style="padding-left:90px;"</eq>>
+                    <div class="cqssc-nums" <eq name="info.sign" value="bjpk10"><else/><eq name="info.sign" value="bjpk10_qwdwd"><else/>style="padding-left:90px;"</eq></eq>>
                         <foreach name="opencode" item="v">
                             <span>{$v}</span>
                         </foreach>
