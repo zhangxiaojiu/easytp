@@ -290,10 +290,15 @@ class LotteryAction extends SystemAction
             asort($num);
             $selArr = $rec[4];
             $max = array_search(max($selArr),$selArr);
+            unset($selArr[$max]);
+            $secMax = array_search(max($selArr),$selArr);
             if($max == 10){
                 $max = 0;
             }
-            while(in_array($max,$num)){
+            if($secMax == 10){
+                $secMax = 0;
+            }
+            if(in_array($max,$num) || in_array($secMax,$num)){
                 $num = NoRand(0,9,5);
             }
             $code = implode(',',$num);
