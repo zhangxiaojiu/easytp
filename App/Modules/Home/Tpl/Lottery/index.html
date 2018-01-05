@@ -78,14 +78,14 @@
             </span>
         </b>
         <br><br><span style="font-size: 16px;"> 当前为“{$info.name}”{$info.plan}{$info.term}期计划  请合理倍投  财神城团队 祝大家赚钱多多</span>
-        <br><br><span style="font-size: 16px; color:blue;">娱乐永相随，财神城易记计划网址：www.csc5188.com</span>
+        <br><br><span style="font-size: 16px; color:blue;"><span style="color:red;">当前连中{$total.continuityRight} 当前连错{$total.continuityWrong}</span>　　娱乐永相随，财神城易记计划网址：www.csc5188.com　　<span style="color:red;">今天中次数{$total.right} 今天错次数{$total.wrong}</span></span>
     </div>
     <div class="width_1000">
         <table class="plan-list">
             <tr>
                 <th>期数</th>
                 <th>计划</th>
-                <th>预测号码</th>
+                <th>预测号码<if condition="$info['id'] eq 8">(二选一)</if></th>
                 <th>开奖号码</th>
                 <th>状态</th>
                 <th>开奖时间</th>

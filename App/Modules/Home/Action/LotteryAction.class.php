@@ -20,12 +20,42 @@ class LotteryAction extends SystemAction
             'sign' => $info['sign'],
             'status' => 1,
         ];
-        $list = M('lotteryPlan')->where($where)->order('expect DESC')->limit(200)->select();
+        $allList = M('lotteryPlan')->where($where)->order('expect DESC')->select();
+        $list = array_slice($allList,0,200);
         $where = [
             'sign' => $info['sign']
         ];
         $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
         $newinfo = self::getInfo($id);
+
+        //统计次数
+        $right = 0;
+        $wrong = 0;
+        $continuityRight = 0;
+        $continuityWrong = 0;
+        $cRight = true;
+        $cWrong = true;
+        foreach ($allList as $v){
+            if($v['state'] = 1){
+                $right++;
+                if($cRight) {
+                    $continuityRight++;
+                }
+                $cWrong = false;
+            }else{
+                $wrong++;
+                if($cWrong) {
+                    $continuityWrong++;
+                }
+                $cRight = false;
+            }
+        }
+        $total['right'] = $right;
+        $total['wrong'] = $wrong;
+        $total['continuityRight'] = $continuityRight;
+        $total['continuityWrong'] = $continuityWrong;
+
+        $this->assign('total',$total);
         $this->assign('info',$newinfo);
         $this->assign('new',$newLog);
         $this->assign('list',$list);
