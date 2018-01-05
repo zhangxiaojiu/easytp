@@ -36,7 +36,7 @@ class LotteryAction extends SystemAction
         $cRight = true;
         $cWrong = true;
         foreach ($allList as $v){
-            if($v['state'] = 1){
+            if($v['state'] == 1){
                 $right++;
                 if($cRight) {
                     $continuityRight++;
