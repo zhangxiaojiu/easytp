@@ -252,7 +252,9 @@ class LotteryAction extends SystemAction
         foreach($data as $k=>$v){
             if(!in_array($k,$v)) {
                 $ret = false;
-                break;
+                if(!$or){
+                    break;  
+                }
             }elseif($or){
                 $ret = true;
                 break;
