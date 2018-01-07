@@ -422,19 +422,19 @@ class LotteryAction extends SystemAction
         if($sign == 'ffcqq'){
             $num = NoRand(0,9,5);
             asort($num);
-            $selArr = $rec[4];
-            $max = array_search(max($selArr),$selArr);
-            unset($selArr[$max]);
-            $secMax = array_search(max($selArr),$selArr);
-            if($max == 10){
-                $max = 0;
-            }
-            if($secMax == 10){
-                $secMax = 0;
-            }
-            if(in_array($max,$num) || in_array($secMax,$num)){
-                $num = NoRand(0,9,5);
-            }
+            //$selArr = $rec[4];
+            // $max = array_search(max($selArr),$selArr);
+            // unset($selArr[$max]);
+            // $secMax = array_search(max($selArr),$selArr);
+            // if($max == 10){
+            //     $max = 0;
+            // }
+            // if($secMax == 10){
+            //     $secMax = 0;
+            // }
+            // if(in_array($max,$num) || in_array($secMax,$num)){
+            //     $num = NoRand(0,9,5);
+            // }
             $code = implode(',',$num);
             $data =[
                 'nums'=>$code
