@@ -134,7 +134,10 @@ class  ThinkTemplate {
         //模板解析
         $tmplContent =  $this->parse($tmplContent);
         // 还原被替换的Literal标签
-        $tmplContent =  preg_replace('/<!--###literal(\d+)###-->/eis',"\$this->restoreLiteral('\\1')",$tmplContent);
+        //$tmplContent =  preg_replace('/<!--###literal(\d+)###-->/eis',"\$this->restoreLiteral('\\1')",$tmplContent);
+        $tmplContent =  preg_replace_callback('/<!--###literal(\d+)###-->/is',function($matches){
+            return $this->restoreLiteral($matches[1]);
+        },$tmplContent);
         // 添加安全代码
         $tmplContent =  '<?php if (!defined(\'THINK_PATH\')) exit();?>'.$tmplContent;
         if(C('TMPL_STRIP_SPACE')) {
@@ -165,7 +168,10 @@ class  ThinkTemplate {
         // 检查PHP语法
         $content    =   $this->parsePhp($content);
         // 首先替换literal标签内容
-        $content    =   preg_replace('/'.$begin.'literal'.$end.'(.*?)'.$begin.'\/literal'.$end.'/eis',"\$this->parseLiteral('\\1')",$content);
+        //$content    =   preg_replace('/'.$begin.'literal'.$end.'(.*?)'.$begin.'\/literal'.$end.'/eis',"\$this->parseLiteral('\\1')",$content);
+        $content    =   preg_replace_callback('/'.$begin.'literal'.$end.'(.*?)'.$begin.'\/literal'.$end.'/is',function ($matches){
+            return $this->parseLiteral($matches[1]);
+        },$content);
 
         // 获取需要引入的标签库列表
         // 标签库只需要定义一次，允许引入多个一次
@@ -194,7 +200,10 @@ class  ThinkTemplate {
             $this->parseTagLib($tag,$content,true);
         }
         //解析普通模板标签 {tagName}
-        $content = preg_replace('/('.$this->config['tmpl_begin'].')([^\d\s'.$this->config['tmpl_begin'].$this->config['tmpl_end'].'].+?)('.$this->config['tmpl_end'].')/eis',"\$this->parseTag('\\2')",$content);
+        //$content = preg_replace('/('.$this->config['tmpl_begin'].')([^\d\s'.$this->config['tmpl_begin'].$this->config['tmpl_end'].'].+?)('.$this->config['tmpl_end'].')/eis',"\$this->parseTag('\\2')",$content);
+        $content = preg_replace_callback('/('.$this->config['tmpl_begin'].')([^\d\s'.$this->config['tmpl_begin'].$this->config['tmpl_end'].'].+?)('.$this->config['tmpl_end'].')/is',function ($matches){
+            return $this->parseTag($matches[2]);
+        },$content);
         return $content;
     }
 
@@ -270,7 +279,10 @@ class  ThinkTemplate {
             // 替换block标签
             $content    =   preg_replace('/'.$begin.'block\sname=(.+?)\s*?'.$end.'(.*?)'.$begin.'\/block'.$end.'/eis',"\$this->replaceBlock('\\1','\\2')",$content);
         }else{
-            $content    =   preg_replace('/'.$begin.'block\sname=(.+?)\s*?'.$end.'(.*?)'.$begin.'\/block'.$end.'/eis',"stripslashes('\\2')",$content);            
+            //$content    =   preg_replace('/'.$begin.'block\sname=(.+?)\s*?'.$end.'(.*?)'.$begin.'\/block'.$end.'/eis',"stripslashes('\\2')",$content);
+            $content    =   preg_replace_callback('/'.$begin.'block\sname=(.+?)\s*?'.$end.'(.*?)'.$begin.'\/block'.$end.'/is',function ($matches){
+                return stripslashes($matches[2]);
+            },$content);
         }
         return $content;
     }
@@ -394,14 +406,22 @@ class  ThinkTemplate {
                 }
                 $n1 = empty($val['attr'])?'(\s*?)':'\s([^'.$end.']*)';
                 if (!$closeTag){
-                    $patterns       = '/'.$begin.$parseTag.$n1.'\/(\s*?)'.$end.'/eis';
-                    $replacement    = "\$this->parseXmlTag('$tagLib','$tag','$1','')";
-                    $content        = preg_replace($patterns, $replacement,$content);
+                    //$patterns       = '/'.$begin.$parseTag.$n1.'\/(\s*?)'.$end.'/eis';
+                    $patterns       = '/'.$begin.$parseTag.$n1.'\/(\s*?)'.$end.'/is';
+                    //$replacement    = "\$this->parseXmlTag('$tagLib','$tag','$1','')";
+                    $content        = preg_replace_callback($patterns, function ($matches) use($tagLib,$tag){
+                        return $this->parseXmlTag($tagLib,$tag,$matches[1],'');
+                    },$content);
                 }else{
-                    $patterns       = '/'.$begin.$parseTag.$n1.$end.'(.*?)'.$begin.'\/'.$parseTag.'(\s*?)'.$end.'/eis';
+                    //$patterns       = '/'.$begin.$parseTag.$n1.$end.'(.*?)'.$begin.'\/'.$parseTag.'(\s*?)'.$end.'/eis';
+                    $patterns       = '/'.$begin.$parseTag.$n1.$end.'(.*?)'.$begin.'\/'.$parseTag.'(\s*?)'.$end.'/is';
                     $replacement    = "\$this->parseXmlTag('$tagLib','$tag','$1','$2')";
-                    for($i=0;$i<$level;$i++) 
-                        $content=preg_replace($patterns,$replacement,$content);
+                    for($i=0;$i<$level;$i++){
+                        //$content=preg_replace($patterns,$replacement,$content);
+                        $content=preg_replace_callback($patterns,function($matches) use($tagLib,$tag){
+                            return $this->parseXmlTag($tagLib,$tag,$matches[1],$matches[2]);
+                        },$content);
+                    }
                 }
             }
         }

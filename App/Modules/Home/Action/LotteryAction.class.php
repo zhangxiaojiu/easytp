@@ -14,19 +14,6 @@ class LotteryAction extends SystemAction
         if($info['state'] == 0){
             $this->error('当前计划已被禁用','http://www.csc5188.com');
         }
-        
-        $where = [
-            'opentime' => array('like',date('Y-m-d').'%'),
-            'sign' => $info['sign'],
-            'status' => 1,
-        ];
-        $allList = M('lotteryPlan')->where($where)->order('expect DESC')->select();
-        $list = array_slice($allList,0,200);
-        $where = [
-            'sign' => $info['sign']
-        ];
-        $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
-        $newinfo = self::getInfo($id);
 
         //统计次数
         $right = 0;
@@ -35,25 +22,41 @@ class LotteryAction extends SystemAction
         $continuityWrong = 0;
         $cRight = true;
         $cWrong = true;
-        foreach ($allList as $v){
-            if($v['state'] == 1){
-                $right++;
-                if($cRight) {
-                    $continuityRight++;
+        $list = [];
+        $where = [
+            'opentime' => array('like',date('Y-m-d').'%'),
+            'sign' => $info['sign'],
+            'status' => 1,
+        ];
+        $allList = M('lotteryPlan')->where($where)->order('expect DESC')->select();
+        if(!empty($allList)) {
+            $list = array_slice($allList, 0, 200);
+            foreach ($allList as $v) {
+                if ($v['state'] == 1) {
+                    $right++;
+                    if ($cRight) {
+                        $continuityRight++;
+                    }
+                    $cWrong = false;
+                } else {
+                    $wrong++;
+                    if ($cWrong) {
+                        $continuityWrong++;
+                    }
+                    $cRight = false;
                 }
-                $cWrong = false;
-            }else{
-                $wrong++;
-                if($cWrong) {
-                    $continuityWrong++;
-                }
-                $cRight = false;
             }
         }
         $total['right'] = $right;
         $total['wrong'] = $wrong;
         $total['continuityRight'] = $continuityRight;
         $total['continuityWrong'] = $continuityWrong;
+
+        $where = [
+            'sign' => $info['sign']
+        ];
+        $newLog = M('lotteryPlan')->where($where)->order('opentime DESC')->limit(1)->find();
+        $newinfo = self::getInfo($id);
 
         $this->assign('total',$total);
         $this->assign('info',$newinfo);
