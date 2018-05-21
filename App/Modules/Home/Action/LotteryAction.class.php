@@ -68,27 +68,12 @@ class LotteryAction extends SystemAction
     /*
      * 获取最新数据
      */
-    public static function getData($cid=0){
-        $id = $cid != 0?$cid:I('request.id',1);
-        $info = self::getInfo($id);
+    public static function getData($info,$data){
+
         if($info['is_auto'] == 0 && $info['nums'] == ''){
             return ['code'=>101,'msg'=>'不自动生成，没有预测'];
         }
         $sign = $info['sign'];
-        $url = $info['api'];
-        //获取数据
-        if(strpos($sign,'ffcqq') !== false){
-            $ret = http_curl($url);
-            $res = json_decode($ret,true);
-            $data[0] = $res[0];
-        }else{
-            $ret = http_curl($url);
-            $res = json_decode($ret,true);
-            $data = $res['data'];
-        }
-        if(empty($data)){
-            return ['code'=>102,'msg'=>'刷新频率太快'];
-        }
 
         $where = [
             'sign' => $sign,
@@ -110,7 +95,7 @@ class LotteryAction extends SystemAction
             }
             if ($info['nums'] == '') {
                 self::updatePlan($sign);
-                $info = self::getInfo($id);
+                $info = self::getInfo($info['id']);
             }
             $con = [
                 'sign' => $sign,
@@ -144,14 +129,40 @@ class LotteryAction extends SystemAction
      * 自动刷新数据
      */
     public function autoRefreshData(){
-        $where = [
-            'uid' => 1,
-            'state' => 1,
+        $apiArr = [
+            'cqssc' => "http://d.apiplus.net/t92c11d7cc8c0d990k/cqssc-1.json",
+            'bjpk10' => "http://d.apiplus.net/t92c11d7cc8c0d990k/bjpk10-1.json",
+            'ffcqq' => "http://tx-ssc.com/api/getData"
         ];
-        $list = M('lottery')->where($where)->select();
-        foreach($list as $v){
-            self::getData($v['id']);
+        $str = I('request.str','');
+        if(isset($apiArr[$str])){
+            $apiList[$str] = $apiArr[$str];
+        }else{
+            $apiList = $apiArr;
         }
+        foreach ($apiList as $k => $v){
+            $url = $v;
+            //获取数据
+            if($k == 'ffcqq'){
+                $ret = http_curl($url);
+                $res = json_decode($ret,true);
+                $data[0] = $res[0];
+            }else{
+                $ret = http_curl($url);
+                $res = json_decode($ret,true);
+                $data = $res['data'];
+            }
+            $where = [
+                'uid' => 1,
+                'state' => 1,
+                'sign' =>['like',$k.'%']
+            ];
+            $list = M('lottery')->where($where)->select();
+            foreach($list as $v){
+                self::getData($v,$data);
+            }
+        }
+
     }
     /*
      * 删除无用数据
@@ -231,6 +242,64 @@ class LotteryAction extends SystemAction
             $data[$j] = $b;
             return self::getCodeRet($sign,$data,$term);
         }
+        //重庆时时彩 前3杀号
+        if($sign == 'cqssc_before_3'){
+            $data = [];
+            $i = $code;
+            $tmp = explode(',',$opencode);
+            $a[0] = $tmp[0];
+            $a[1] = $tmp[1];
+            $a[2] = $tmp[2];
+            $data[$i] = $a;
+            return self::getKillAndDouble($sign,$data,$term);
+        }
+        //重庆时时彩 中3杀号
+        if($sign == 'cqssc_middle_3'){
+            $data = [];
+            $i = $code;
+            $tmp = explode(',',$opencode);
+            $a[0] = $tmp[1];
+            $a[1] = $tmp[2];
+            $a[2] = $tmp[3];
+            $data[$i] = $a;
+            return self::getKillAndDouble($sign,$data,$term);
+        }
+        //重庆时时彩 后3杀号
+        if($sign == 'cqssc_after_3'){
+            $data = [];
+            $i = $code;
+            $tmp = explode(',',$opencode);
+            $a[0] = $tmp[2];
+            $a[1] = $tmp[3];
+            $a[2] = $tmp[4];
+            $data[$i] = $a;
+            return self::getKillAndDouble($sign,$data,$term);
+        }
+
+    }
+
+    //获取杀号和不能复数装
+    private static function getKillAndDouble($sign,$data,$term,$or=false){
+        foreach ($data as $v){
+            if (count($v) != count(array_unique($v))){
+                $hasSame = false;
+            }else{
+                $hasSame =true;
+            }
+        }
+        if(!self::isCodeRight($data,$or) && $hasSame){
+            self::updatePlan($sign,$data);
+            $ret = ['code'=>100,'msg'=>'right'];
+        }else{
+            if(self::getContinuityTerm($sign,$term) == $term){
+                self::updatePlan($sign,$data);
+                $ret = ['code'=>101,'msg'=>'wrong enough times'];
+            }else {
+                $ret = ['code' => 102, 'msg' => 'wrong'];
+            }
+        }
+        $ret['times'] = self::getContinuityTerm($sign,$term);
+        return $ret;
     }
 
     //获取返回状态和次数
@@ -476,6 +545,13 @@ class LotteryAction extends SystemAction
             }
             $code = implode(',',$num1).'|'.implode(',',$num2);
             $data = [
+                'nums'=>$code
+            ];
+        }
+        //重庆时时彩前中后 杀号
+        if($sign == 'cqssc_before_3' || $sign == 'cqssc_middle_3' || $sign == 'cqssc_after_3'){
+            $code = rand(0,9);
+            $data =[
                 'nums'=>$code
             ];
         }
