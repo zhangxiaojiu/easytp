@@ -144,11 +144,11 @@ class LotteryAction extends SystemAction
             $url = $v;
             //获取数据
             if($k == 'ffcqq'){
-                $ret = http_curl($url);
+                $ret = http_curl($url,[],'GET');
                 $res = json_decode($ret,true);
                 $data[0] = $res[0];
             }else{
-                $ret = http_curl($url);
+                $ret = http_curl($url,[],'GET');
                 $res = json_decode($ret,true);
                 $data = $res['data'];
             }
