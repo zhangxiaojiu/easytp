@@ -6,3 +6,4 @@
 /App/Conf/mysqldb.php
 /App/Conf/system.php
 /Public/images/
+/.*

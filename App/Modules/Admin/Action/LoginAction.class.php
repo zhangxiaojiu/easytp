@@ -30,7 +30,7 @@ Class LoginAction extends Action{
 		session('username',$user['username']);
 		session('logintime',date('Y-m-d H:i:s',$user['logintime']));
 		session('loginip',$user['loginip']);
-		redirect(__GROUP__);
+		redirect('/');
 	}
 	Public function verify(){
 		import('ORG.Util.Image');
