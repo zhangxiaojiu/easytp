@@ -66,6 +66,31 @@ class LotteryAction extends SystemAction
     }
 
     /*
+     *record picture
+     */
+    public function picture(){
+	$sign = 'bjpk10';
+	$where = [
+	    'sign'=>$sign
+	];
+	$list = M('lotteryPlan')->where($where)->order('id DESC')->limit(10)->select();
+	foreach($list as $v){
+	    $opencode = explode(',',$v['opencode']);
+	    $code = [];
+	    foreach($opencode as $val){
+		$code[] = intval($val);
+	    }
+	    $row['expect'] = $v['expect'];
+	    $row['opentime'] = $v['opentime'];
+	    $row['opencode'] = $code;
+	    $ret[] = $row;
+	}
+	$this->assign('list',$ret);
+	$this->assign('sign',$sign);
+	$this->display();
+    }
+
+    /*
      * 获取最新数据
      */
     public static function getData($info,$data){

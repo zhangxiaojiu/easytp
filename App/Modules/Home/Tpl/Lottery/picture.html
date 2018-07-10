@@ -1,0 +1,219 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>财神城</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="{$web.keyword}">
+    <meta name="description" content="{$web.description}">
+    <meta http-equiv="refresh" content="1000;url=/picture">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+.strip{margin-bottom:10px;}
+.strip button{border-radius:3px;}
+.strip .bt-num{margin-right:5px;}
+.strip .bt-style{margin-right:10px;}
+.strip .bt-back{background:#cc3333; color:#fff; width:60px;}
+.strip .bt-view{background:#999; color:#fff;}
+.strip .view{width:36px; margin:2px; color:#fff;}
+.strip .v1{background:#cccc00;}
+.strip .v2{background:#0099ff;}
+.strip .v3{background:#333;}
+.strip .v4{background:#ff6600;}
+.strip .v5{background:#00cccc;}
+.strip .v6{background:#3300cc;}
+.strip .v7{background:#999;}
+.strip .v8{background:#ff0000;}
+.strip .v9{background:#660000;}
+.strip .v10{background:#33cc33;}
+.strip .cover{opacity:0.1}
+.strip .click{background:#ccc;}
+.strip .now{background:#333;}
+</style>
+</head>
+<body>
+<div class="container theme-showcase">
+    <div class="jumbotron">
+        <h2>北京pk10分布图</h2>
+    </div>
+
+    <ul class="nav nav-tabs hide" role="tablist">
+        <li role="presentation" <eq name="sign" value="cqssc">class="active"</eq>><a href="/?sign=cqssc">重庆时时彩</a></li>
+        <li role="presentation" <eq name="sign" value="bjpk10">class="active"</eq>><a href="/?sign=bjpk10">北京赛车PK10</a></li>
+        <li role="presentation" <eq name="sign" value="ffcqq">class="active"</eq>><a href="/?sign=ffcqq">腾讯分分彩</a></li>
+    </ul>
+
+    <div class="strip">
+	号码分布：
+	<button class='bt-num b1' data-num='1' data-fun='1' onclick='btnClick(this)'>号码1</button>
+	<button class='bt-num b2' data-num='2' data-fun='1' onclick='btnClick(this)'>号码2</button>
+	<button class='bt-num b3' data-num='3' data-fun='1' onclick='btnClick(this)'>号码3</button>
+	<button class='bt-num b4' data-num='4' data-fun='1' onclick='btnClick(this)'>号码4</button>
+	<button class='bt-num b5' data-num='5' data-fun='1' onclick='btnClick(this)'>号码5</button>
+	<button class='bt-num b6' data-num='6' data-fun='1' onclick='btnClick(this)'>号码6</button>
+	<button class='bt-num b7' data-num='7' data-fun='1' onclick='btnClick(this)'>号码7</button>
+	<button class='bt-num b8' data-num='8' data-fun='1' onclick='btnClick(this)'>号码8</button>
+	<button class='bt-num b9' data-num='9' data-fun='1' onclick='btnClick(this)'>号码9</button>
+	<button class='bt-num b10' data-num='10' data-fun='1' onclick='btnClick(this)'>号码10</button>
+    </div>
+    <div class="strip">
+	大小单双：
+	<button class='bt-style' data-num='single' data-fun='1' onclick='btnClick(this)'>单</button>
+	<button class='bt-style' data-num='double' data-fun='1' onclick='btnClick(this)'>双</button>
+	<button class='bt-style' data-num='big' data-fun='1' onclick='btnClick(this)'>大</button>
+	<button class='bt-style' data-num='small' data-fun='1' onclick='btnClick(this)'>小</button>
+	<button class='bt-back' data-num='reset' data-fun='1' onclick='btnBack(this)'>还原</button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+
+        </thead>
+        <tbody>
+	<tr>
+	    <th class='text-center'>期数</th>
+	    <th class='strip text-center'>
+		<button class="bt-view now" data-style='num' onclick='viewClick(this)'>显示号码</button>
+		<button class="bt-view" data-style='big' onclick='viewClick(this)'>显示大小</button>
+		<button class="bt-view" data-style='single' onclick='viewClick(this)'>显示单双</button>
+	    </th>
+	    <th class='text-center'>开奖时间</th>
+	</tr>
+        <foreach name="list" item="v" key="k">
+            <tr class='text-center'>
+		<td>{$v.expect}</td>
+		<td class='strip'>
+		    <foreach name='v.opencode' item='vo'>
+		    <button class='view v{$vo}'>{$vo}</button>
+		    </foreach>
+		</td>
+		<td>{$v.opentime}</td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+</div>
+<include file="Public/footer"/>
+<script>
+tAll = 1;
+function btnClick(obj){
+    if(tAll == 1){
+	setAllCover();
+    }
+    var num = $(obj).data('num');
+    var fun = $(obj).data('fun');
+    if(fun == 0){
+	$(obj).data('fun','1');
+	$(obj).addClass('click');
+    }
+    if(fun == 1){
+	$(obj).data('fun','0');
+	$(obj).removeClass('click');
+    }
+    if(num.length > 2){
+	setStyle(num,fun);
+    }
+    autoView();
+}
+function btnBack(){
+    $('.bt-num').data('fun','1');
+    $('.bt-num').removeClass('click');
+    $('.bt-style').removeClass('click');
+    tAll = 1;
+    autoView();
+}
+function viewClick(obj){
+    $('.bt-view').removeClass('now');
+    $(obj).addClass('now');
+    var style = $(obj).data('style');
+    if(style == 'num'){
+	$('.v1').text('1');
+	$('.v2').text('2');
+	$('.v3').text('3');
+	$('.v4').text('4');
+	$('.v5').text('5');
+	$('.v6').text('6');
+	$('.v7').text('7');
+	$('.v8').text('8');
+	$('.v9').text('9');
+	$('.v10').text('10');
+    }
+    if(style == 'big'){
+	$('.v1').text('小');
+	$('.v2').text('小');
+	$('.v3').text('小');
+	$('.v4').text('小');
+	$('.v5').text('小');
+	$('.v6').text('大');
+	$('.v7').text('大');
+	$('.v8').text('大');
+	$('.v9').text('大');
+	$('.v10').text('大');
+    }
+    if(style == 'single'){
+	$('.v1').text('单');
+	$('.v2').text('双');
+	$('.v3').text('单');
+	$('.v4').text('双');
+	$('.v5').text('单');
+	$('.v6').text('双');
+	$('.v7').text('单');
+	$('.v8').text('双');
+	$('.v9').text('单');
+	$('.v10').text('双');
+    }
+}
+function setStyle(n,f){
+    if(f == 0){
+	var v = 1;
+    }else if(f == 1){
+	v = 0
+    }
+    if(n == 'single'){
+	$('.b1').data('fun',v);
+	$('.b3').data('fun',v);
+	$('.b5').data('fun',v);
+	$('.b7').data('fun',v);
+	$('.b9').data('fun',v);
+    }
+    if(n == 'double'){
+	$('.b2').data('fun',v);
+	$('.b4').data('fun',v);
+	$('.b6').data('fun',v);
+	$('.b8').data('fun',v);
+	$('.b10').data('fun',v);
+    }
+    if(n == 'big'){
+	$('.b6').data('fun',v);
+	$('.b7').data('fun',v);
+	$('.b8').data('fun',v);
+	$('.b9').data('fun',v);
+	$('.b10').data('fun',v);
+    }
+    if(n == 'small'){
+	$('.b1').data('fun',v);
+	$('.b2').data('fun',v);
+	$('.b3').data('fun',v);
+	$('.b4').data('fun',v);
+	$('.b5').data('fun',v);
+    }
+}
+
+function autoView(){
+    for(var i=1;i<=10;i++){
+	var f = $('.b'+i).data('fun');
+	setView(i,f);
+    }
+}
+function setView(n,f){
+    if(f == 1){
+	$('.v'+n).removeClass('cover');
+    }
+    if(f == 0){
+	$('.v'+n).addClass('cover');
+    }
+}
+function setAllCover(){
+    $('.bt-num').data('fun','0');
+    $('.bt-style').data('fun','0');
+    tAll = 0;
+}
+</script>

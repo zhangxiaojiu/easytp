@@ -23,7 +23,8 @@ return array(
         'record.csc5188.com'   => array('Home/Record'),
         'ssc188888888.com'  => array('Home/'),
         'www.ssc188888888.com'   => array('Home/'),
-        'admin.ssc188888888.com'   => array('Admin/')
+        'admin.ssc188888888.com'   => array('Admin/'),
+        'admin.csc5188.com'   => array('Admin/')
     ),
 
 	'LOAD_EXT_CONFIG' => 'mysqldb',
